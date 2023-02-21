@@ -1,0 +1,966 @@
+openapi: 3.0.1
+info:
+  title: API FörRätt
+  description: 'Kommunala digitala tjänster för omklassning av livsmedelsverksamheter'
+  contact:
+    name: FörRätt
+    email: mejladress_till_kontaktperson@foretag.se
+  license:
+    name: Tillhandahålls enligt CC BY-SA
+    url: https://creativecommons.org/licenses/by-sa/4.0/deed.sv
+  version: 'v1.0.0'
+externalDocs:
+  description: Läs mer om FörRätt
+  url: https://www.livsmedelsverket.se/om-oss/samarbeten-och-projekt/projekt2/kommunala-digitala-tjanster-for-registrering-och-riskklassning-av-livsmedelsverksamheter
+servers:
+  - url: https://<url till api>
+tags:
+  - name: anlaggningar
+    description: Anläggningar som står som registrerade och som inte har ett upphört datum ska kunna klassas om.
+  - name: anlaggningsuppgifter
+    description: Information om en anläggning
+
+
+paths:
+  /api/v1/anlaggningar/{organisationsnummer}:
+    get:
+      tags:
+        - anlaggningar
+      summary: Hämta aktiva företag/anläggningar med angivet organisationsnummer
+      description: Returnerar aktiva anläggningar med angivet organisationsnummer
+      operationId: getAnlaggningarByOrganisationsnummer
+      parameters:
+        - name: organisationsnummer
+          in: path
+          description: organisationsnummer för den eller de anläggningar som ska hämtas
+          required: true
+          schema:
+            type: string
+            pattern: '^(\d{12})$'
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Anlaggningar'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Anlaggningar'
+        400:
+          description: Bad Request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/problem+xml:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        401:
+          description: Unauthorised
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/problem+xml:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        403:
+          description: Forbidden
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/problem+xml:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        404:
+          description: Not Found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/problem+xml:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        405:
+          description: Not Allowed
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/problem+xml:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        415:
+          description: Unsupported Media Type
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/problem+xml:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        500:
+          description: Internal Server Error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/problem+xml:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /api/v1/anlaggning/{anlaggningsid}:
+    get:
+      tags:
+        - anlaggningsuppgifter
+      summary: Hämta uppgifter om anläggningen med angivet anläggningsid
+      description: Returnerar uppgifter om en anläggning
+      operationId: getAnlaggningByAnlaggningsid
+      parameters:
+        - name: anlaggningsid
+          in: path
+          description: Anläggningsid för den anläggning som ska hämtas
+          required: true
+          schema:
+            type: string
+      security:
+        - ApiKeyAuth: []
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Anlaggning'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Anlaggning'
+        400:
+          description: Bad Request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/problem+xml:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        401:
+          description: Unauthorised
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/problem+xml:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        403:
+          description: Forbidden
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/problem+xml:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        404:
+          description: Not Found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/problem+xml:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        405:
+          description: Not Allowed
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/problem+xml:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        415:
+          description: Unsupported Media Type
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/problem+xml:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        500:
+          description: Internal Server Error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/problem+xml:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /api/v1/anlaggning/{anlaggningsid}/livsmedelsverksamhet:
+    get:
+      tags:
+        - anlaggningsuppgifter
+      summary: Hämta uppgifter om livsmedelsverksamheten vid angiven anläggning
+      description: Returnerar uppgifter om en anläggnings livsmedelsverksamhet. Med livsmedelsverksamhet avses huvudsaklig inriktning, aktiviteter, produktgrupper och eventuella tredjepartscertifieringar.
+      operationId: getLivsmedelsverksamhetByAnlaggningsid
+      parameters:
+        - name: anlaggningsid
+          in: path
+          description: Anläggningsid för den anläggning som ska hämtas
+          required: true
+          schema:
+            type: string
+      security:
+        - ApiKeyAuth: []
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Livsmedelsverksamhet'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Livsmedelsverksamhet'
+        400:
+          description: Bad Request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/problem+xml:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        401:
+          description: Unauthorised
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/problem+xml:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        403:
+          description: Forbidden
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/problem+xml:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        404:
+          description: Not Found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/problem+xml:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        405:
+          description: Not Allowed
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/problem+xml:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        415:
+          description: Unsupported Media Type
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/problem+xml:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        500:
+          description: Internal Server Error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/problem+xml:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /api/v1/anlaggning/{anlaggningsid}/fakturering:
+    get:
+      tags:
+        - anlaggningsuppgifter
+      summary: Hämta faktureringsuppgifter för en anläggning
+      description: Returnerar faktureringsuppgifter för en anläggning
+      operationId: getFaktureringsuppgifterByAnlaggningsid
+      parameters:
+        - name: anlaggningsid
+          in: path
+          description: Anläggningsid för den anläggning vars faktureringsuppgifter ska hämtas
+          required: true
+          schema:
+            type: string
+      security:
+        - ApiKeyAuth: []
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Faktura'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Faktura'
+        400:
+          description: Bad Request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/problem+xml:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        401:
+          description: Unauthorised
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/problem+xml:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        403:
+          description: Forbidden
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/problem+xml:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        404:
+          description: Not Found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/problem+xml:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        405:
+          description: Not Allowed
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/problem+xml:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        415:
+          description: Unsupported Media Type
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/problem+xml:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        500:
+          description: Internal Server Error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/problem+xml:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /api/v1/anmalan/{anlaggningsid}:
+    put:
+      tags:
+        - anlaggningsuppgifter
+      summary: Uppdaterar anläggningsuppgifter och riskklassning med angiven data
+      operationId: updateAnlaggningWithForm
+      parameters:
+        - name: anlaggningsid
+          in: path
+          description: Anläggningsid på anläggningen som ska uppdateras
+          required: true
+          schema:
+            type: string
+      security:
+        - ApiKeyAuth: []
+      requestBody:
+        description: Uppdaterar anläggningsobjektet
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Anmalan'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Anmalan'
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        202:
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        400:
+          description: Bad Request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/problem+xml:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        401:
+          description: Unauthorised
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/problem+xml:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        403:
+          description: Forbidden
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/problem+xml:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        404:
+          description: Not Found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/problem+xml:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        405:
+          description: Method Not Allowed
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/problem+xml:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        408:
+          description: Request Timeout
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/problem+xml:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        409:
+          description: Conflict
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/problem+xml:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        415:
+          description: Unsupported Media Type
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/problem+xml:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        422:
+          description: Unprocessable Entity
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/problem+xml:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        500:
+          description: Internal Server Error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/problem+xml:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        501:
+          description: Method Not Implemented
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/problem+xml:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+components:
+  securitySchemes:
+    ApiKeyAuth:        # arbitrary name for the security scheme
+      type: apiKey
+      in: header       # can be "header", "query" or "cookie"
+      name: X-API-KEY  # name of the header, query parameter or cookie
+  schemas:
+    Adress:
+      description: Adress kan vara t.ex. postadress, besöksadress eller fakturaadress
+      required:
+        - gatuadress
+        - ort
+      type: object
+      properties:
+        coadress:
+          type: string
+          maxLength: 64
+          minLength: 1
+          nullable: true
+          description: C/o-adress
+          example: ""
+        gatuadress:
+          type: string
+          maxLength: 64
+          minLength: 1
+          description: Utdelningsadress, gatuadress eller box till företaget, anläggningen/verksamhetsutövaren
+          example: "Storgatan 8"
+        postnummer:
+          type: string
+          maxLength: 6
+          minLength: 5
+          description: Postnummer
+          example: '851 81'
+        ort:
+          type: string
+          maxLength: 32
+          minLength: 1
+          description: Ort, postort
+          example: "Sundsvall"
+        land:
+          type: string
+          maxLength: 32
+          minLength: 1
+          nullable: true
+          description: Land
+          example: "Sverige"
+        adresstyp:
+          $ref: '#/components/schemas/AdresstypEnum'
+      additionalProperties: false
+    AdresstypEnum:
+      description: Adresstyp
+      type: string
+      enum:
+        - Besöksadress
+        - Postadress
+        - Postadress SSBTGU
+        - Fakturaadress
+    Anlaggning:
+      type: object
+      description: "Uppgifter om en anläggning"
+      properties:
+        anlaggningsid:
+          type: string
+          maxLength: 50
+          minLength: 1
+          format: ""
+          example: "0951c35c-c57b-4d65-9faf-b92ad0c846c8"
+        anlaggningsnamn:
+          type: string
+          maxLength: 100
+          minLength: 1
+          example: "Emmas Konditori"
+        fastighetsbeteckning:
+          type: string
+          maxLength: 50
+          minLength: 1
+          example: "Viken 23:1"
+        mobilAnlaggning:
+          type: string
+          enum:
+            - nej
+            - ja
+          description: "Är det en mobil anläggning?"
+        adresser:
+          type: array
+          items:
+            $ref: '#/components/schemas/Adress'
+          description: Anläggningens adresser
+        kontaktpersoner:
+          type: array
+          items:
+            $ref: '#/components/schemas/Kontaktperson'
+          description: Anläggningens kontaktpersoner
+    Anlaggningar:
+      type: object
+      description: "Uppgifter som används för att identifiera en anläggning"
+      properties:
+        anlaggningsid:
+          type: string
+          maxLength: 50
+          minLength: 1
+          example: "0951c35c-c57b-4d65-9faf-b92ad0c846c8"
+        anlaggningsnamn:
+          type: string
+          maxLength: 100
+          minLength: 1
+          example: "Emmas Konditori"
+        gatuadress:
+          type: string
+          maxLength: 64
+          minLength: 1
+          example: "Storgatan 8"
+        ort:
+          type: string
+          maxLength: 32
+          minLength: 1
+          example: "Sundsvall"
+        huvudsakliginriktning:
+          type: string
+          nullable: true
+          example: "SLI"
+    Faktura:
+      type: object
+      description: "Faktureringsuppgifter"
+      properties:
+        anlaggningsnamn:
+          type: string
+          format: ""
+          example: "Emmas Konditori"
+        fakturareferens:
+          description: "Fakturareferens att använda vid fakturering"
+          type: string
+          example: "EK1101"
+        adresser:
+          description: Faktureringsadress
+          type: array
+          items:
+            $ref: '#/components/schemas/Adress'
+    Kontaktperson:
+      type: object
+      properties:
+        kontaktpersonid:
+          type: string
+          example: "0951c35c-c57b-4d65-9faf-b92ad0c846c8"
+        fornamn:
+          minLength: 1
+          maxLength: 32
+          type: string
+          description: Förnamn
+          example: "Jenny"
+        efternamn:
+          minLength: 1
+          maxLength: 32
+          type: string
+          example: "Svensson"
+        kontaktuppgifter:
+          type: array
+          items:
+            $ref: '#/components/schemas/Kontaktuppgift'
+          description: Kontaktuppgifter för kontaktpersonen
+        roll:
+          type: array
+          items:
+            $ref: '#/components/schemas/RollEnum'
+    Kontaktuppgift:
+      description: Telefonnummer och/eller e-postadress
+      type: object
+      properties:
+        telefonnummer:
+          minLength: 1
+          maxLength: 15
+          type: string
+          example: "0701234567"
+        epostadress:
+          minLength: 1
+          maxLength: 50
+          type: string
+          format: email
+          example: "jenny.svensson@foretaget.com"
+    Livsmedelsverksamhet:
+      description: "Information om den livsmedelsverksamhet som bedrivs vid anläggningen"
+      type: object
+      properties:
+        omfattning:
+          $ref: '#/components/schemas/OmfattningEnum'
+        huvudsakliginriktning:
+          $ref: '#/components/schemas/InriktningEnum'
+        huvudaktivitet:
+          type: array
+          items:
+            $ref: '#/components/schemas/HuvudaktivitetEnum'
+        aktivitet:
+          type: array
+          items:
+            $ref: '#/components/schemas/AktivitetEnum'
+        produktgrupp:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProduktgruppEnum'
+        tredjepartscertifiering:
+          description: "Om verksamheten har en tredjepartscertifiering eller inte"
+          type: string
+          enum:
+            - nej
+            - ja
+      additionalProperties: false
+    Arende:
+      description: Uppgifter om ärendet
+      type: object
+      properties:
+        arendenummer:
+          description: "Ärendenummer från e-tjänsten. Inte diarienummer."
+          type: string
+          example: "WEB0000623562"
+        arendeinformation:
+          description: "Information rörande riskklassningen som inte täcks av övriga uppgifter."
+          type: string
+          example: "Vi planerar att starta i juli och ha öppet på helger."
+        handling:
+          type: array
+          items:
+            $ref: '#/components/schemas/Handling'
+          description: Handlingar kopplade till ärendet.
+    Handling:
+      type: object
+      properties:
+        namn:
+          type: string
+          example: "Registrerade uppgifter"
+        bilaga:
+          type: string
+          format: binary
+          example: "<PDF med en sammanställning av inskickade uppgifter>"
+      description: Anmälan av uppgifter om livsmedelsverksamhet
+    Anmalan:
+      required:
+        - anlaggning
+        - livsmedelsverksamhet
+      type: object
+      properties:
+        anlaggning:
+          $ref: '#/components/schemas/Anlaggning'
+        livsmedelsverksamhet:
+          $ref: '#/components/schemas/Livsmedelsverksamhet'
+        faktura:
+          $ref: '#/components/schemas/Faktura'
+        arende:
+          $ref: '#/components/schemas/Arende'
+      description: Anmälan av uppgifter om livsmedelsverksamhet
+    HuvudaktivitetEnum:
+      description: ID på huvudaktiviteter. Översättning mellan ID och hvudaktivitet finns i kodverket för riskklassningen.
+      type: string
+      enum:
+        - DVHA001
+        - DVHA002
+        - DVHA003
+        - DVHA004
+        - DVHA005
+        - HKHA001
+        - HKHA002
+        - HKHA003
+        - HKHA004
+        - HKHA005
+        - HKHA006
+        - HKHA007
+        - HKHA008
+        - SLHA001
+        - SLHA002
+        - SLHA003
+        - SLHA004
+        - SLHA005
+        - SLHA006
+        - SLHA007
+        - SLHA008
+        - TLHA001
+        - TLHA002
+        - TLHA003
+        - TLHA004
+        - TLHA005
+        - TLHA006
+        - TLHA008
+        - TLHA010
+        - TLHA011
+        - TLHA012
+        - TLHA013
+        - TLHA014
+        - TLHA015
+        - TLHA016
+        - TLHA017
+        - TLHA018
+        - TLHA019
+        - TLHA020
+        - TLHA021
+        - TLHA022
+    AktivitetEnum:
+      description: ID på Aktiviteter. Översättning mellan ID och aktivitet finns i kodverket för riskklassningen.
+      type: string
+      enum:
+        - DVUA001
+        - DVUA002
+        - DVUA003
+        - DVUA004
+        - DVUA005
+        - DVUA006
+        - DVUA007
+        - DVUA008
+        - DVUA009
+        - DVUA010
+        - HKUA001
+        - HKUA002
+        - HKUA003
+        - HKUA006
+        - HKUA007
+        - SLUA001
+        - SLUA002
+        - SLUA003
+        - SLUA004
+        - SLUA005
+        - SLUA006
+        - SLUA007
+        - SLUA008
+        - SLUA009
+        - SLUA010
+        - SLUA011
+        - SLUA012
+        - SLUA013
+        - SLUA014
+        - SLUA015
+        - SLUA016
+        - SLUA017
+        - SLUA018
+        - SLUA019
+        - SLUA020
+        - SLUA021
+        - SLUA022
+        - SLUA023
+        - SLUA024
+        - SLUA025
+        - SLUA026
+        - SLUA027
+        - SLUA030
+        - SLUA031
+        - SLUA032
+        - SLUA033
+        - TLUA001
+        - TLUA002
+        - TLUA003
+        - TLUA004
+        - TLUA005
+        - TLUA006
+        - TLUA007
+        - TLUA008
+        - TLUA009
+        - TLUA010
+        - TLUA011
+        - TLUA012
+        - TLUA013
+        - TLUA014
+        - TLUA016
+        - TLUA017
+        - TLUA018
+        - TLUA019
+        - TLUA020
+        - TLUA021
+    InriktningEnum:
+      description: ID på huvudsaklig inriktning. Översättning mellan ID och huvudsaklig inriktning finns i kodverket för riskklassningen.
+      type: string
+      enum:
+        - DVI
+        - SLI
+        - TLI
+        - HKI
+    OmfattningEnum:
+      description: ID på omfattning på livsmedelsverksamheten. Översättning mellan ID och omfattning finns i kodverket för riskklassningen.
+      type: string
+      enum:
+        - SLO1
+        - SLO2
+        - SLO3
+        - SLO4
+        - TLO1
+        - TLO2
+        - TLO3
+        - TLO4
+        - HKO1
+        - HKO2
+        - HKO3
+        - HKO4
+        - DVO1
+        - DVO2
+        - DVO3
+        - DVO4
+        - DVO5
+    ProduktgruppEnum:
+      description: ID på produktgrupper. Översättning mellan ID och produktgrupp finns i kodverket för riskklassningen.
+      type: string
+      enum:
+        - PG001
+        - PG002
+        - PG003
+        - PG004
+        - PG005
+        - PG006
+        - PG007
+        - PG008
+        - PG009
+        - PG010
+    RollEnum:
+      description: Kontaktpersonens roll i företaget, anläggningen eller ärendet.
+      type: string
+      enum:
+        - Kontaktperson anläggningen
+        - Kontaktperson ärendet
+        - Uppgiftslämnare
+    ProblemDetails:
+      description: Om HTTP svarskoderna inte räcker ska API:et beskriva feldetaljer enligt schemat
+      type: object
+      properties:
+        type:
+          description: En URI som identifierar problemtypen som är mer specialiserad än statuskoden
+          type: string
+          example: "https://example.com/probs/req-parameters"
+        title:
+          description: En kort beskrivning av problemtypen. Om inte type är angivet ska title reflektera beskrivningen av statuskoden
+          type: string
+          example: "Felaktiga anropsparametrar"
+        status:
+          description: Detsamma som statuskoden för HTTP-svaret om det används
+          type: number
+          example: "400"
+        detail:
+          description: Kort andarvänlig beskrivning av det faktiska felet
+          type: string
+          example: "Felaktigt organisationsnummer"
+        instance:
+          description: En URI som identifierar den faktiska resursen
+          type: string
+          example: "/foretagsinformation/v1/foretag/1234567-922"
+      additionalProperties: {}
+
+
