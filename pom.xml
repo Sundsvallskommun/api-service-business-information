@@ -11,7 +11,7 @@
     </parent>
     <groupId>se.sundsvall</groupId>
     <artifactId>api-service-business-information</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0</version>
     <name>BusinessInformation</name>
     <description>BusinessInformation</description>
     <properties>
@@ -54,12 +54,15 @@
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
+        <dependency>
+            <groupId>org.glassfish.jaxb</groupId>
+            <artifactId>jaxb-runtime</artifactId>
+            <version>2.3.8</version>
+        </dependency>
     </dependencies>
 
     <build>
         <plugins>
-
-
             <plugin>
                 <groupId>org.openapitools</groupId>
                 <artifactId>openapi-generator-maven-plugin</artifactId>
@@ -116,10 +119,16 @@
                 <configuration>
                     <excludes>
                         <exclude>**/generated/**</exclude>
-                        <exclude>**/se/sundsvall/businessinformation/BusinessInformationApplication*</exclude>
-                        <exclude>**/se/sundsvall/businessinformation/integration/**/*Configuration*</exclude>
-                        <exclude>**/se/sundsvall/businessinformation/integration/**/*Properties*</exclude>
-                        <exclude>**/se/sundsvall/businessinformation/integration/ecos/util/**</exclude>
+                        <exclude>
+                            **/se/sundsvall/businessinformation/BusinessInformationApplication*
+                        </exclude>
+                        <exclude>
+                            **/se/sundsvall/businessinformation/integration/**/*Configuration*
+                        </exclude>
+                        <exclude>**/se/sundsvall/businessinformation/integration/**/*Properties*
+                        </exclude>
+                        <exclude>**/se/sundsvall/businessinformation/integration/ecos/util/**
+                        </exclude>
                     </excludes>
                 </configuration>
             </plugin>
