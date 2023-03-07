@@ -1,9 +1,11 @@
 package se.sundsvall.businessinformation.integration.ecos;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
@@ -11,11 +13,15 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.Answers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.zalando.problem.ThrowableProblem;
 
+import io.swagger.v3.oas.annotations.Parameter;
 import minutmiljo.ArrayOfSearchFacilityResultSvcDto;
 import minutmiljo.SearchFacility;
 import minutmiljo.SearchFacilityResponse;
@@ -31,13 +37,14 @@ class EcosIntegrationTest {
     @InjectMocks
     EcosIntegration integration;
     
-    @Test
-    void getFacilities() {
+    @ParameterizedTest()
+    @ValueSource(strings = {"123456-7890", "12123456-7890"})
+    void getFacilities(String orgNr) {
         
         when(client.searchFacility(any(SearchFacility.class))).thenReturn(buildSearchFacilityResult());
         
         
-        var result = integration.getFacilities("someOrgNr");
+        var result = integration.getFacilities(orgNr);
         
         assertThat(result).isNotNull();
         assertThat(result.size()).isEqualTo(1);
@@ -69,5 +76,20 @@ class EcosIntegrationTest {
                         .withVistingAddress("someVisitingAdress")))
             );
     }
+    @Test
+    void getFacilities_withFaultyOrgNumber(){
+    
+        assertThatExceptionOfType(ThrowableProblem.class)
+            .isThrownBy(() -> integration.getFacilities("someOrgNr"))
+            .withMessage("Bad Request: organizationNumber must consist of 10 or 12 digits with " +
+                         "the last four seperated with a hyphen");
+        
+        
+        verifyNoInteractions(client);
+        verifyNoInteractions(mapper);
+    }
+    
+    
+    
     
 }

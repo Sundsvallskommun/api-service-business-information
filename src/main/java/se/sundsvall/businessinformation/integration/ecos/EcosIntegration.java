@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.stereotype.Component;
+import org.zalando.problem.Problem;
+import org.zalando.problem.Status;
 
 import se.sundsvall.businessinformation.integration.ecos.model.FacilityStatus;
 import se.sundsvall.businessinformation.integration.ecos.model.FacilityType;
@@ -29,8 +31,8 @@ public class EcosIntegration {
         this.mapper = mapper;
     }
     
+    
     public List<Anlaggningar> getFacilities(String orgNr) {
-        
         
         var facilityTypeFilter = new FacilityFacilityTypeIdsFilterSvcDto()
             .withFacilityTypeIds(FacilityType.LIVSMEDELSANLAGGNING.getValue());
@@ -45,12 +47,23 @@ public class EcosIntegration {
                 ));
         
         var orgFilter = new FacilityPartyOrganizationNumberFilterSvcDto()
-            .withOrganizationNumber(orgNr);
+            .withOrganizationNumber(formatOrganizationNumber(orgNr));
         
         return mapper.toDto(client
             .searchFacility(new SearchFacility()
                 .withSearchFacilitySvcDto(new SearchFacilitySvcDto()
                     .withFacilityFilters(new ArrayOfFacilityFilterSvcDto()
                         .withFacilityFilterSvcDto(facilityStatusFilter, facilityTypeFilter, orgFilter)))));
+    }
+    
+    private String formatOrganizationNumber(String organizationNumber) {
+        // The length is 1 more than the number of numbers because the text contains a hyphen
+        return switch (organizationNumber.length()) {
+            case 13 -> organizationNumber;
+            case 11 -> "16" + organizationNumber;
+            default -> throw Problem.valueOf(Status.BAD_REQUEST,
+                "organizationNumber must consist of 10 or 12 digits with the last four seperated with a hyphen");
+        };
+        
     }
 }
