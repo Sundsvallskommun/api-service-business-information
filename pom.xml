@@ -24,6 +24,9 @@
         <openapi-generator-maven-plugin>6.2.1</openapi-generator-maven-plugin>
         <generated-sources-path>${project.build.directory}/generated-sources</generated-sources-path>
         <generated-sources-java-path>src/main/java</generated-sources-java-path>
+        <jaxb2-maven-plugin.version>2.5.0</jaxb2-maven-plugin.version>
+        <jaxb2-fluent-api.version>3.0</jaxb2-fluent-api.version>
+        <sun-xml-bind.version>3.0.2</sun-xml-bind.version>
     </properties>
     <dependencies>
 
@@ -43,11 +46,6 @@
         </dependency>
         <!--- Other -->
         <dependency>
-            <groupId>se.sundsvall.generated-clients</groupId>
-            <artifactId>minutmiljo</artifactId>
-            <version>1.2</version>
-        </dependency>
-        <dependency>
             <groupId>org.apache.httpcomponents.client5</groupId>
             <artifactId>httpclient5</artifactId>
             <version>5.2.1</version>
@@ -62,10 +60,61 @@
             <artifactId>jaxb-runtime</artifactId>
             <version>2.3.8</version>
         </dependency>
+        <!-- Generated clients -->
+        <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.xml.bind</groupId>
+            <artifactId>jaxb-core</artifactId>
+            <version>${sun-xml-bind.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.xml.bind</groupId>
+            <artifactId>jaxb-impl</artifactId>
+            <version>${sun-xml-bind.version}</version>
+        </dependency>
     </dependencies>
 
     <build>
         <plugins>
+            <!-- Generate java from wsdl -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>jaxb2-maven-plugin</artifactId>
+                <version>${jaxb2-maven-plugin.version}</version>
+                <!-- Enables fluent builder for generated classes -->
+                <dependencies>
+                    <dependency>
+                        <groupId>org.jvnet.jaxb2_commons</groupId>
+                        <artifactId>jaxb2-fluent-api</artifactId>
+                        <version>${jaxb2-fluent-api.version}</version>
+                    </dependency>
+                </dependencies>
+                <executions>
+                    <execution>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>xjc</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <!-- Enable fluent -->
+                    <arguments>
+                        <argument>-Xfluent-api</argument>
+                    </arguments>
+                    <outputDirectory>${generated-sources-path}</outputDirectory>
+                    <packageName>generated.se.sundsvall.minutmiljo</packageName>
+                    <noGeneratedHeaderComments>true</noGeneratedHeaderComments>
+                    <sources>
+                        <source>${project.basedir}/src/main/resources/MinutMiljoService.wsdl</source>
+                    </sources>
+                    <sourceType>wsdl</sourceType>
+                </configuration>
+            </plugin>
+
             <plugin>
                 <groupId>org.openapitools</groupId>
                 <artifactId>openapi-generator-maven-plugin</artifactId>
@@ -97,6 +146,7 @@
                     </execution>
                 </executions>
             </plugin>
+
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>
@@ -116,11 +166,14 @@
                     </execution>
                 </executions>
             </plugin>
+
+
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <configuration>
                     <excludes>
+
                         <exclude>**/generated/**</exclude>
                         <exclude>
                             **/se/sundsvall/businessinformation/BusinessInformationApplication*
@@ -132,6 +185,7 @@
                         </exclude>
                         <exclude>**/se/sundsvall/businessinformation/integration/ecos/util/**
                         </exclude>
+                        <exclude>se/sundsvall/businessinformation/util/DateAdapter**</exclude>
                     </excludes>
                 </configuration>
             </plugin>

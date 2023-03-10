@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jxb:bindings version="2.1"
+              xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
+              xmlns:xs="http://www.w3.org/2001/XMLSchema"
+              xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc">
+
+    <jxb:globalBindings generateElementProperty="false">
+        <jxb:javaType name="java.time.LocalDateTime" xmlType="xs:dateTime" parseMethod="se.sundsvall.businessinformation.util.DateAdapter.parseDateTime" printMethod="se.sundsvall.businessinformation.util.DateAdapter.printLocalDateTime"/>
+        <jxb:javaType name="java.time.LocalDate" xmlType="xs:date" parseMethod="se.sundsvall.businessinformation.util.DateAdapter.parseDate" printMethod="se.sundsvall.businessinformation.util.DateAdapter.printLocalDate"/>
+    </jxb:globalBindings>
+</jxb:bindings>
