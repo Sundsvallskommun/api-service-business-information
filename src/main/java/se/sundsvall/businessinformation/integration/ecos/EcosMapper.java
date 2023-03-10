@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Component;
 
 import generated.se.sundsvall.forratt.Anlaggningar;
-import minutmiljo.SearchFacilityResponse;
+import generated.se.sundsvall.minutmiljo.SearchFacilityResponse;
 
 @Component
 public class EcosMapper {
