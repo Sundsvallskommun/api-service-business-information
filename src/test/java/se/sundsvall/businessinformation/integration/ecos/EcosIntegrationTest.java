@@ -21,10 +21,10 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.zalando.problem.ThrowableProblem;
 
-import generated.se.sundsvall.minutmiljo.ArrayOfSearchFacilityResultSvcDto;
-import generated.se.sundsvall.minutmiljo.SearchFacility;
-import generated.se.sundsvall.minutmiljo.SearchFacilityResponse;
-import generated.se.sundsvall.minutmiljo.SearchFacilityResultSvcDto;
+import minutmiljo.ArrayOfSearchFacilityResultSvcDto;
+import minutmiljo.SearchFacility;
+import minutmiljo.SearchFacilityResponse;
+import minutmiljo.SearchFacilityResultSvcDto;
 
 
 @ExtendWith(MockitoExtension.class)

@@ -3,8 +3,8 @@ package se.sundsvall.businessinformation.integration.ecos;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import generated.se.sundsvall.minutmiljo.SearchFacility;
-import generated.se.sundsvall.minutmiljo.SearchFacilityResponse;
+import minutmiljo.SearchFacility;
+import minutmiljo.SearchFacilityResponse;
 
 @FeignClient(name = "minutmiljo", url = "${integration.ecos.url}", configuration =
     EcosIntegrationConfiguration.class)

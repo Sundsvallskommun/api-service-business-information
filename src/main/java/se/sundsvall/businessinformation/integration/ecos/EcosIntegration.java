@@ -11,13 +11,13 @@ import se.sundsvall.businessinformation.integration.ecos.model.FacilityStatus;
 import se.sundsvall.businessinformation.integration.ecos.model.FacilityType;
 
 import generated.se.sundsvall.forratt.Anlaggningar;
-import generated.se.sundsvall.minutmiljo.ArrayOfFacilityFilterSvcDto;
-import generated.se.sundsvall.minutmiljo.ArrayOfguid;
-import generated.se.sundsvall.minutmiljo.FacilityFacilityStatusIdsFilterSvcDto;
-import generated.se.sundsvall.minutmiljo.FacilityFacilityTypeIdsFilterSvcDto;
-import generated.se.sundsvall.minutmiljo.FacilityPartyOrganizationNumberFilterSvcDto;
-import generated.se.sundsvall.minutmiljo.SearchFacility;
-import generated.se.sundsvall.minutmiljo.SearchFacilitySvcDto;
+import minutmiljo.ArrayOfFacilityFilterSvcDto;
+import minutmiljo.ArrayOfguid;
+import minutmiljo.FacilityFacilityStatusIdsFilterSvcDto;
+import minutmiljo.FacilityFacilityTypeIdsFilterSvcDto;
+import minutmiljo.FacilityPartyOrganizationNumberFilterSvcDto;
+import minutmiljo.SearchFacility;
+import minutmiljo.SearchFacilitySvcDto;
 
 
 @Component
