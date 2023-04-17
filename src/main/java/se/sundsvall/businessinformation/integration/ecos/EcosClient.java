@@ -3,6 +3,8 @@ package se.sundsvall.businessinformation.integration.ecos;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import minutmiljo.GetFoodFacilities;
+import minutmiljo.GetFoodFacilitiesResponse;
 import minutmiljo.SearchFacility;
 import minutmiljo.SearchFacilityResponse;
 
@@ -14,4 +16,7 @@ interface EcosClient {
     
     @PostMapping(consumes = TEXT_XML_UTF8, headers = {"SOAPAction=urn:Ecos.API.MinutMiljo.Service.V1/IMinutMiljoService/SearchFacility"})
     SearchFacilityResponse searchFacility(SearchFacility searchFacility);
+    
+    @PostMapping(consumes = TEXT_XML_UTF8, headers = {"SOAPAction=urn:Ecos.API.MinutMiljo.Service.V1/IMinutMiljoService/GetFoodFacilities"})
+    GetFoodFacilitiesResponse getFoodFacilities(GetFoodFacilities getFoodFacilities);
 }

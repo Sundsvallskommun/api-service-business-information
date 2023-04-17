@@ -1,25 +1,29 @@
 package se.sundsvall.businessinformation.api;
 
-import java.util.List;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import se.sundsvall.businessinformation.service.ecos.FacilityService;
 
-import generated.se.sundsvall.forratt.Anlaggningar;
+import generated.se.sundsvall.forratt.Anmalan;
+import generated.se.sundsvall.forratt.Faktura;
+import generated.se.sundsvall.forratt.Livsmedelsverksamhet;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import minutmiljo.GetFoodFacilitiesResponse;
+
 
 @RestController
 @Validated
-@RequestMapping("/anlaggningar")
-@Tag(name = "Anlaggningar", description = "Anläggningar som står som registrerade och som inte har ett upphört datum ska kunna klassas om.")
+@RequestMapping("")
+@Tag(name = "anlaggningsuppgifter", description = "Information om en anläggning")
 public class FacilityResource {
     
     private final FacilityService service;
@@ -28,13 +32,40 @@ public class FacilityResource {
         this.service = service;
     }
     
-    
-    @GetMapping("{organisationsnummer}")
-    @Operation(summary = "Hämta aktiva företag/anläggningar med angivet organisationsnummer",
-        description = "Returnerar aktiva anläggningar med angivet organisationsnummer")
-    public ResponseEntity<List<Anlaggningar>> getAnlaggningar(
-        @Schema(description = "organisationsnummer för den eller de anläggningar som ska hämtas")
-        @PathVariable String organisationsnummer) {
-        return ResponseEntity.ok(service.getFacilities(organisationsnummer));
+    @GetMapping("/anlaggning/{anlaggningsid}")
+    @Operation(summary = "Hämta uppgifter om anläggningen med angivet anläggningsid",
+        description = "Returnerar uppgifter om en anläggning")
+    public ResponseEntity<GetFoodFacilitiesResponse> getAnlaggning(
+        @Schema(description = "Anläggningsid för den anläggning som ska hämtas")
+        @PathVariable String anlaggningsid) {
+        return ResponseEntity.ok(service.getFacility(anlaggningsid));
     }
+    
+    
+    @GetMapping("/anlaggning/{anlaggningsid}/livsmedelsverksamhet")
+    @Operation(summary = "Hämta uppgifter om livsmedelsverksamheten vid angiven anläggning",
+        description = "Returnerar uppgifter om en anläggnings livsmedelsverksamhet. Med livsmedelsverksamhet avses huvudsaklig inriktning, aktiviteter, produktgrupper och eventuella tredjepartscertifieringar.")
+    public ResponseEntity<Livsmedelsverksamhet> getLivsmedelsverksamhet(
+        @Schema(description = "Anläggningsid för den anläggning som ska hämtas")
+        @PathVariable String anlaggningsid) {
+        return ResponseEntity.ok(service.getLivsmedelsverksamhet(anlaggningsid));
+    }
+    
+    @GetMapping("/anlaggning/{anlaggningsid}/fakturering")
+    @Operation(summary = "Hämta faktureringsuppgifter för en anläggning",
+        description = "Returnerar faktureringsuppgifter för en anläggning.")
+    public ResponseEntity<Faktura> getFakturering(
+        @Schema(description = "Anläggningsid för den anläggning vars faktureringsuppgifter ska hämtas")
+        @PathVariable String anlaggningsid) {
+        return ResponseEntity.ok(service.getFakturering(anlaggningsid));
+    }
+    
+    @PutMapping("/anmlan/{anlaggningsid}")
+    @Operation(summary = "Uppdaterar anläggningsuppgifter och riskklassning med angiven data")
+    public ResponseEntity<Faktura> uppdateraRiskklassning(
+        @Schema(description = "Anläggningsid på anläggningen som ska uppdateras")
+        @PathVariable String anlaggningsid, @RequestBody Anmalan anmalan) {
+        return ResponseEntity.ok().build();
+    }
+    
 }

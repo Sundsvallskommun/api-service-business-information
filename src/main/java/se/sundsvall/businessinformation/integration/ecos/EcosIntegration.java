@@ -10,12 +10,18 @@ import org.zalando.problem.Status;
 import se.sundsvall.businessinformation.integration.ecos.model.FacilityStatus;
 import se.sundsvall.businessinformation.integration.ecos.model.FacilityType;
 
+import generated.se.sundsvall.forratt.Anlaggning;
 import generated.se.sundsvall.forratt.Anlaggningar;
+import generated.se.sundsvall.forratt.Faktura;
+import generated.se.sundsvall.forratt.Livsmedelsverksamhet;
 import minutmiljo.ArrayOfFacilityFilterSvcDto;
 import minutmiljo.ArrayOfguid;
 import minutmiljo.FacilityFacilityStatusIdsFilterSvcDto;
 import minutmiljo.FacilityFacilityTypeIdsFilterSvcDto;
 import minutmiljo.FacilityPartyOrganizationNumberFilterSvcDto;
+import minutmiljo.GetFoodFacilities;
+import minutmiljo.GetFoodFacilitiesResponse;
+import minutmiljo.GetFoodFacilitiesSvcDto;
 import minutmiljo.SearchFacility;
 import minutmiljo.SearchFacilitySvcDto;
 
@@ -66,5 +72,21 @@ public class EcosIntegration {
                 "organizationNumber must consist of 10 or 12 digits with the last four seperated with a hyphen");
         };
         
+    }
+    
+    public GetFoodFacilitiesResponse getFacility(String anlaggningsid) {
+        return client.getFoodFacilities(new GetFoodFacilities()
+            .withRequest(new GetFoodFacilitiesSvcDto()
+                .withFacilityIds(new ArrayOfguid()
+                    .withGuid(anlaggningsid))));
+    }
+    
+    
+    public Livsmedelsverksamhet getLivsmedelsverksamhet(String anlaggningsid) {
+        return new Livsmedelsverksamhet();
+    }
+    
+    public Faktura getFakturering(String anlaggningsid) {
+        return new Faktura();
     }
 }

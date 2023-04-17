@@ -20,11 +20,11 @@ import se.sundsvall.businessinformation.service.ecos.FacilityService;
 import generated.se.sundsvall.forratt.Anlaggningar;
 
 @ExtendWith(MockitoExtension.class)
-class FacilityResourceTest {
+class FacilitiesResourceTest {
     @Mock
     FacilityService service;
     @InjectMocks
-    FacilityResource resource;
+    FacilitiesResource resource;
     
     @Test
     void getAnlaggningar() {
