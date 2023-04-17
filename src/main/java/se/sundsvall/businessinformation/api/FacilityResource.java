@@ -1,5 +1,8 @@
 package se.sundsvall.businessinformation.api;
 
+import generated.se.sundsvall.forratt.Anlaggning;
+import minutmiljo.GetFacilityPartyRoles;
+import minutmiljo.GetFacilityPartyRolesResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,7 +38,7 @@ public class FacilityResource {
     @GetMapping("/anlaggning/{anlaggningsid}")
     @Operation(summary = "Hämta uppgifter om anläggningen med angivet anläggningsid",
         description = "Returnerar uppgifter om en anläggning")
-    public ResponseEntity<GetFoodFacilitiesResponse> getAnlaggning(
+    public ResponseEntity<Anlaggning> getAnlaggning(
         @Schema(description = "Anläggningsid för den anläggning som ska hämtas")
         @PathVariable String anlaggningsid) {
         return ResponseEntity.ok(service.getFacility(anlaggningsid));
@@ -43,8 +46,9 @@ public class FacilityResource {
     
     
     @GetMapping("/anlaggning/{anlaggningsid}/livsmedelsverksamhet")
-    @Operation(summary = "Hämta uppgifter om livsmedelsverksamheten vid angiven anläggning",
-        description = "Returnerar uppgifter om en anläggnings livsmedelsverksamhet. Med livsmedelsverksamhet avses huvudsaklig inriktning, aktiviteter, produktgrupper och eventuella tredjepartscertifieringar.")
+    @Operation(summary = "Hämta uppgifter om livsmedelsverksamheten vid angiven anläggning*",
+        description = "*Den här endpointen kommer inte returnera någon data då underliggande system inte tillhandahåller den information som ska returneras." +
+                "Returnerar uppgifter om en anläggnings livsmedelsverksamhet. Med livsmedelsverksamhet avses huvudsaklig inriktning, aktiviteter, produktgrupper och eventuella tredjepartscertifieringar.")
     public ResponseEntity<Livsmedelsverksamhet> getLivsmedelsverksamhet(
         @Schema(description = "Anläggningsid för den anläggning som ska hämtas")
         @PathVariable String anlaggningsid) {
@@ -58,14 +62,6 @@ public class FacilityResource {
         @Schema(description = "Anläggningsid för den anläggning vars faktureringsuppgifter ska hämtas")
         @PathVariable String anlaggningsid) {
         return ResponseEntity.ok(service.getFakturering(anlaggningsid));
-    }
-    
-    @PutMapping("/anmlan/{anlaggningsid}")
-    @Operation(summary = "Uppdaterar anläggningsuppgifter och riskklassning med angiven data")
-    public ResponseEntity<Faktura> uppdateraRiskklassning(
-        @Schema(description = "Anläggningsid på anläggningen som ska uppdateras")
-        @PathVariable String anlaggningsid, @RequestBody Anmalan anmalan) {
-        return ResponseEntity.ok().build();
     }
     
 }
