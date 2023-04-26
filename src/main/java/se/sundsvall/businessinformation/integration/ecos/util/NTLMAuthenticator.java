@@ -9,7 +9,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.Route;
 
-  public class NTLMAuthenticator implements Authenticator {
+public class NTLMAuthenticator implements Authenticator {
     final NTLMEngine engine = new NTLMEngineImpl();
     private final String username;
     private final String password;

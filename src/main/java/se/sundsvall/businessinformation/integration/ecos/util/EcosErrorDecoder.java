@@ -19,7 +19,7 @@ public class EcosErrorDecoder implements ErrorDecoder {
     
     private final String soapProtocol;
     
-   public EcosErrorDecoder() {
+    public EcosErrorDecoder() {
         this.soapProtocol = SOAPConstants.SOAP_1_1_PROTOCOL;
     }
     
