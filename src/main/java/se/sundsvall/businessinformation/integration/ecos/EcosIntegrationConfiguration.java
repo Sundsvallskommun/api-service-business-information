@@ -3,7 +3,8 @@ package se.sundsvall.businessinformation.integration.ecos;
 import java.nio.charset.StandardCharsets;
 
 import javax.net.ssl.X509TrustManager;
-import javax.xml.soap.SOAPConstants;
+
+import jakarta.xml.soap.SOAPConstants;
 
 import org.springframework.cloud.openfeign.FeignBuilderCustomizer;
 import org.springframework.context.annotation.Bean;
