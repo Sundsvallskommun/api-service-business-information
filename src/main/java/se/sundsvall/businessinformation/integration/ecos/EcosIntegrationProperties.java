@@ -11,6 +11,8 @@ import lombok.Setter;
 class EcosIntegrationProperties {
     private int connectTimeout;
     private int readTimeout;
+    private String url;
     private String username;
     private String password;
+    
 }
