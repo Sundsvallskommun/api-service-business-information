@@ -48,22 +48,22 @@ public class EcosIntegration {
     private final static String INVOICE_ROLE = "480E2731-1F2F-4F35-8A37-FDDE957E9CD0";
     private final EcosClient client;
     private final EcosMapper mapper;
-    
+
     public EcosIntegration(EcosClient client, EcosMapper mapper) {
         this.client = client;
         this.mapper = mapper;
     }
-    
+
     private static <T> Predicate<T> distinctByKey(Function<? super T, ?> keyExtractor) {
         Set<Object> seen = ConcurrentHashMap.newKeySet();
         return t -> seen.add(keyExtractor.apply(t));
     }
-    
+
     public List<Anlaggningar> getFacilities(String orgNr) {
-        
+
         var facilityTypeFilter = new FacilityFacilityTypeIdsFilterSvcDto()
             .withFacilityTypeIds(FacilityType.LIVSMEDELSANLAGGNING.getValue());
-        
+
         var facilityStatusFilter =
             new FacilityFacilityStatusIdsFilterSvcDto()
                 .withFacilityStatusIds(new ArrayOfguid().withGuid(
@@ -72,26 +72,29 @@ public class EcosIntegration {
                     FacilityStatus.AKTIV.getValue(),
                     FacilityStatus.BEVILJAD.getValue()
                 ));
-        
+
         var orgFilter = new FacilityPartyOrganizationNumberFilterSvcDto()
             .withOrganizationNumber(formatOrganizationNumber(orgNr));
-        
+
         return mapper.toDto(client
             .searchFacility(new SearchFacility()
                 .withSearchFacilitySvcDto(new SearchFacilitySvcDto()
                     .withFacilityFilters(new ArrayOfFacilityFilterSvcDto()
                         .withFacilityFilterSvcDto(facilityStatusFilter, facilityTypeFilter, orgFilter)))));
     }
-    
+
     private String formatOrganizationNumber(String organizationNumber) {
-        // The length is 1 more than the number of numbers because the text contains a hyphen
-        return switch (organizationNumber.length()) {
-            case 13 -> organizationNumber;
-            case 11 -> "16" + organizationNumber;
+
+        // Remove all non digits
+        String cleanNumber = organizationNumber.replaceAll("[^0-9]", "");
+
+        return switch (cleanNumber.length()) {
+            case 12 -> "%s-%s".formatted(cleanNumber.substring(0, 8), cleanNumber.substring(8));
+            case 10 -> "16%s-%s".formatted(cleanNumber.substring(0, 6), cleanNumber.substring(6));
             default -> throw Problem.valueOf(Status.BAD_REQUEST,
                 "organizationNumber must consist of 10 or 12 digits with the last four seperated with a hyphen");
         };
-        
+
     }
     
     public Anlaggning getFacility(String anlaggningsid) {
