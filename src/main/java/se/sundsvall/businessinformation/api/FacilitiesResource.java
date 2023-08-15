@@ -14,6 +14,7 @@ import se.sundsvall.businessinformation.service.ecos.FacilityService;
 import generated.se.sundsvall.forratt.Anlaggningar;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
@@ -38,5 +39,3 @@ public class FacilitiesResource {
         return ResponseEntity.ok(service.getFacilities(organisationsnummer));
     }
 }
-    
-
