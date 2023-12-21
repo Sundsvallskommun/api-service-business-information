@@ -19,17 +19,14 @@
         <docker.image.name>ms-business-information</docker.image.name>
         <published.container.port.test>8717</published.container.port.test>
         <published.container.port.production>8717</published.container.port.production>
-        <!-- Generated sources properties -->
-        <openapi-generator-maven-plugin>7.1.0</openapi-generator-maven-plugin>
+        <!-- Service properties -->
         <generated-sources-path>${project.build.directory}/generated-sources</generated-sources-path>
         <generated-sources-java-path>src/main/java</generated-sources-java-path>
-
         <jaxb2-maven-plugin.version>3.1.0</jaxb2-maven-plugin.version>
         <jaxb2-fluent-api.version>3.0</jaxb2-fluent-api.version>
     </properties>
     <dependencies>
-
-        <!--- DEPT44 Framework -->
+        <!--- Dept44 framework -->
         <dependency>
             <groupId>se.sundsvall.dept44</groupId>
             <artifactId>dept44-starter</artifactId>
@@ -54,9 +51,7 @@
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
-
     </dependencies>
-
     <build>
         <plugins>
             <!-- Generate java from wsdl -->
@@ -101,11 +96,9 @@
                     </execution>
                 </executions>
             </plugin>
-
             <plugin>
                 <groupId>org.openapitools</groupId>
                 <artifactId>openapi-generator-maven-plugin</artifactId>
-                <version>${openapi-generator-maven-plugin}</version>
                 <executions>
                     <execution>
                         <id>forratt-api</id>
@@ -134,7 +127,6 @@
                     </execution>
                 </executions>
             </plugin>
-
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>
@@ -154,8 +146,6 @@
                     </execution>
                 </executions>
             </plugin>
-
-
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
@@ -179,5 +169,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>
