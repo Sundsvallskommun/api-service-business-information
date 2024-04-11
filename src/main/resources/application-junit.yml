@@ -1,0 +1,7 @@
+integration:
+  ecos:
+    url: http://localhost:8080/api-ecos
+    connectTimeout: 5
+    readTimeout: 30
+    username: someUsername
+    password: somePassword

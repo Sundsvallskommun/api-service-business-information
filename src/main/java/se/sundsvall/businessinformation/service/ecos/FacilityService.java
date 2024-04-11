@@ -13,28 +13,29 @@ import generated.se.sundsvall.forratt.Livsmedelsverksamhet;
 
 @Service
 public class FacilityService {
-    
-    private final EcosIntegration integration;
-    
-    
-    public FacilityService(EcosIntegration integration) {
-        this.integration = integration;
-    }
-    
-    
-    public List<Anlaggningar> getFacilities(String orgNr) {
-        return integration.getFacilities(orgNr);
-    }
-    
-    public Anlaggning getFacility(String anlaggningsid) {
-        return integration.getFacility(anlaggningsid);
-    }
-    
-    public Livsmedelsverksamhet getLivsmedelsverksamhet(String anlaggningsid) {
-        return integration.getLivsmedelsverksamhet(anlaggningsid);
-    }
-    
-    public Faktura getFakturering(String anlaggningsid) {
-        return integration.getFakturering(anlaggningsid);
-    }
+
+	private final EcosIntegration integration;
+
+
+	public FacilityService(final EcosIntegration integration) {
+		this.integration = integration;
+	}
+
+
+	public List<Anlaggningar> getFacilities(final String orgNr) {
+		return integration.getFacilities(orgNr);
+	}
+
+	public Anlaggning getFacility(final String anlaggningsid) {
+		return integration.getFacility(anlaggningsid);
+	}
+
+	public Livsmedelsverksamhet getLivsmedelsverksamhet(final String anlaggningsid) {
+		return integration.getLivsmedelsverksamhet(anlaggningsid);
+	}
+
+	public Faktura getFakturering(final String anlaggningsid) {
+		return integration.getFakturering(anlaggningsid);
+	}
+
 }
