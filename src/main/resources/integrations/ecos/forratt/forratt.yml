@@ -13,7 +13,7 @@ externalDocs:
   description: Läs mer om FörRätt
   url: https://www.livsmedelsverket.se/om-oss/samarbeten-och-projekt/projekt2/kommunala-digitala-tjanster-for-registrering-och-riskklassning-av-livsmedelsverksamheter
 servers:
-  - url: https://<url till api>
+  - url: http://localhost:8080
 tags:
   - name: anlaggningar
     description: Anläggningar som står som registrerade och som inte har ett upphört datum ska kunna klassas om.
@@ -129,7 +129,7 @@ paths:
           schema:
             type: string
       security:
-        - ApiKeyAuth: []
+        - ApiKeyAuth: [ ]
       responses:
         200:
           description: successful operation
@@ -218,7 +218,7 @@ paths:
           schema:
             type: string
       security:
-        - ApiKeyAuth: []
+        - ApiKeyAuth: [ ]
       responses:
         200:
           description: successful operation
@@ -307,7 +307,7 @@ paths:
           schema:
             type: string
       security:
-        - ApiKeyAuth: []
+        - ApiKeyAuth: [ ]
       responses:
         200:
           description: successful operation
@@ -395,7 +395,7 @@ paths:
           schema:
             type: string
       security:
-        - ApiKeyAuth: []
+        - ApiKeyAuth: [ ]
       requestBody:
         description: Uppdaterar anläggningsobjektet
         content:
@@ -525,7 +525,7 @@ paths:
                 $ref: '#/components/schemas/ProblemDetails'
 components:
   securitySchemes:
-    ApiKeyAuth:        # arbitrary name for the security scheme
+    ApiKeyAuth: # arbitrary name for the security scheme
       type: apiKey
       in: header       # can be "header", "query" or "cookie"
       name: X-API-KEY  # name of the header, query parameter or cookie
@@ -961,6 +961,4 @@ components:
           description: En URI som identifierar den faktiska resursen
           type: string
           example: "/foretagsinformation/v1/foretag/1234567-922"
-      additionalProperties: {}
-
-
+      additionalProperties: { }

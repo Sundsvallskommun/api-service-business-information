@@ -21,31 +21,34 @@ import generated.se.sundsvall.forratt.Anlaggningar;
 
 @ExtendWith(MockitoExtension.class)
 class FacilitiesResourceTest {
-    @Mock
-    FacilityService service;
-    @InjectMocks
-    FacilitiesResource resource;
-    
-    @Test
-    void getAnlaggningar() {
-        
-        when(service.getFacilities(any(String.class))).thenReturn(List.of(
-            new Anlaggningar()
-                .anlaggningsid("someAnlaggningsid")
-                .anlaggningsnamn("someAnläggningsnamn")
-                .gatuadress("someGatuadress")
-                .ort("someOrt")));
-        
-       var result = resource.getAnlaggningar("someOrgNr");
-       
-       
-       assertThat(result.getStatusCode().is2xxSuccessful()).isTrue();
-       assertThat(result.getBody()).isNotNull();
-        // We ignore huvudsakliginriktning since ECOS cannot deliver huvudsakliginriktning/main
-        // orientation at this given time.
-       assertThat(result.getBody().get(0)).hasNoNullFieldsOrPropertiesExcept("huvudsakliginriktning");
-       
-       verify(service, times(1)).getFacilities(any(String.class));
-       verifyNoMoreInteractions(service);
-    }
+
+	@Mock
+	FacilityService service;
+
+	@InjectMocks
+	FacilitiesResource resource;
+
+	@Test
+	void getAnlaggningar() {
+
+		when(service.getFacilities(any(String.class))).thenReturn(List.of(
+			new Anlaggningar()
+				.anlaggningsid("someAnlaggningsid")
+				.anlaggningsnamn("someAnläggningsnamn")
+				.gatuadress("someGatuadress")
+				.ort("someOrt")));
+
+		final var result = resource.getAnlaggningar("someOrgNr");
+
+
+		assertThat(result.getStatusCode().is2xxSuccessful()).isTrue();
+		assertThat(result.getBody()).isNotNull();
+		// We ignore huvudsakliginriktning since ECOS cannot deliver huvudsakliginriktning/main
+		// orientation at this given time.
+		assertThat(result.getBody().getFirst()).hasNoNullFieldsOrPropertiesExcept("huvudsakliginriktning");
+
+		verify(service, times(1)).getFacilities(any(String.class));
+		verifyNoMoreInteractions(service);
+	}
+
 }
