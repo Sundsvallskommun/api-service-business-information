@@ -4951,12 +4951,12 @@
 		<wsdl:port name="BasicHttpBinding_IMinutMiljoService"
 				   binding="tns:BasicHttpBinding_IMinutMiljoService">
 			<soap:address
-					location="http://saas730.personal.sundsvall.se/Ecos2PublicServices/MinutMiljoService.svc"/>
+					location="http://endpoint.url"/>
 		</wsdl:port>
 		<wsdl:port name="BasicHttpBinding_IMinutMiljoService1"
 				   binding="tns:BasicHttpBinding_IMinutMiljoService1">
 			<soap:address
-					location="https://saas730.personal.sundsvall.se/Ecos2PublicServices/MinutMiljoService.svc"/>
+					location="https://endpoint.url"/>
 		</wsdl:port>
 	</wsdl:service>
 </wsdl:definitions>
