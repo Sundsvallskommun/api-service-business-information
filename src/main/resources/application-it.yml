@@ -1,0 +1,7 @@
+integration:
+  ecos:
+    url: http://localhost:${wiremock.server.port}/api-ecos
+    connectTimeout: 5
+    readTimeout: 30
+    username: someUsername
+    password: somePassword
