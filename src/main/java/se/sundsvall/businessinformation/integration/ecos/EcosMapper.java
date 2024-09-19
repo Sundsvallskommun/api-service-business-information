@@ -23,13 +23,10 @@ import minutmiljo.SearchFacilityResponse;
 import minutmiljo.SearchFacilityResultSvcDto;
 import minutmiljo.SearchFacilitySvcDto;
 
-
 public final class EcosMapper {
 
 	private static final String EMAIL = "D34442AC-D8F7-419A-BE2B-2794674DE58E";
-
 	private static final String PHONE = "2BB38776-54E4-405E-9E84-BD841C6BB2C3";
-
 	private static final String INVOICE_ADRESS = "EEF91381-7025-4FE7-B5FA-92FB2B77976B";
 
 	private EcosMapper() {
@@ -46,12 +43,11 @@ public final class EcosMapper {
 
 	static List<Anlaggningar> toDto(final SearchFacilityResponse response) {
 		final var result = response.getSearchFacilityResult().getSearchFacilityResultSvcDto();
-		return result.stream().map(dto ->
-				new Anlaggningar()
-					.anlaggningsid(dto.getFacilityId())
-					.anlaggningsnamn(dto.getFacilityName())
-					.gatuadress(dto.getVistingAddress())
-					.ort(dto.getPostalArea()))
+		return result.stream().map(dto -> new Anlaggningar()
+			.anlaggningsid(dto.getFacilityId())
+			.anlaggningsnamn(dto.getFacilityName())
+			.gatuadress(dto.getVistingAddress())
+			.ort(dto.getPostalArea()))
 			.toList();
 	}
 
@@ -64,8 +60,7 @@ public final class EcosMapper {
 				new Adress(searchFacility.getVistingAddress(), searchFacility.getPostalArea())
 					.postnummer(searchFacility.getPostCode())
 					.land("Sverige")
-					.adresstyp(AdresstypEnum.BES_KSADRESS)
-			))
+					.adresstyp(AdresstypEnum.BES_KSADRESS)))
 			.kontaktpersoner(kontaktPersoner);
 	}
 
@@ -93,11 +88,11 @@ public final class EcosMapper {
 		final var kontaktuppgifter = new ArrayList<Kontaktuppgift>();
 
 		final var emailIterator = svcDtoList.stream()
-			.filter(dto -> dto.getContactPathId().equalsIgnoreCase(EMAIL))
+			.filter(dto -> EMAIL.equalsIgnoreCase(dto.getContactPathId()))
 			.iterator();
 
 		final var phoneIterator = svcDtoList.stream()
-			.filter(dto -> dto.getContactPathId().equalsIgnoreCase(PHONE))
+			.filter(dto -> PHONE.equalsIgnoreCase(dto.getContactPathId()))
 			.iterator();
 
 		while (emailIterator.hasNext() || phoneIterator.hasNext()) {
@@ -129,7 +124,7 @@ public final class EcosMapper {
 				.getAddresses()
 				.getPartyAddressSvcDto().stream()
 				.filter(a -> a.getAddressTypes().getAddressTypeSvcDto().stream()
-					.anyMatch(type -> type.getId().equalsIgnoreCase(INVOICE_ADRESS)))
+					.anyMatch(type -> INVOICE_ADRESS.equalsIgnoreCase(type.getId())))
 				.map(adress -> new Adress(adress.getStreetName() + " " + adress.getStreetNumber(), adress.getPostalArea())
 					.coadress(adress.getCareOfName())
 					.postnummer(adress.getPostCode())
@@ -138,6 +133,4 @@ public final class EcosMapper {
 			.toList();
 		return new Faktura().adresser(addresses).anlaggningsnamn(facilityName);
 	}
-
-
 }

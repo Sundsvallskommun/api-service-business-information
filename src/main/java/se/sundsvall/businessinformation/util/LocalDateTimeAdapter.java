@@ -1,8 +1,9 @@
 package se.sundsvall.businessinformation.util;
 
+import static java.time.format.DateTimeFormatter.ISO_DATE_TIME;
+import static java.time.temporal.ChronoUnit.MICROS;
+
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 
 import jakarta.xml.bind.annotation.adapters.XmlAdapter;
 
@@ -14,7 +15,7 @@ public class LocalDateTimeAdapter extends XmlAdapter<String, LocalDateTime> {
 			return null;
 		}
 
-		return DateTimeFormatter.ISO_DATE_TIME.parse(s, LocalDateTime::from);
+		return ISO_DATE_TIME.parse(s, LocalDateTime::from);
 	}
 
 	@Override
@@ -23,7 +24,6 @@ public class LocalDateTimeAdapter extends XmlAdapter<String, LocalDateTime> {
 			return null;
 		}
 
-		return DateTimeFormatter.ISO_DATE_TIME.format(localDateTime.truncatedTo(ChronoUnit.MICROS));
+		return ISO_DATE_TIME.format(localDateTime.truncatedTo(MICROS));
 	}
-
 }

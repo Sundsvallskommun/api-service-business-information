@@ -20,8 +20,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.zalando.problem.ThrowableProblem;
 
-import se.sundsvall.businessinformation.TestUtil;
-
 import minutmiljo.ArrayOfSearchFacilityResultSvcDto;
 import minutmiljo.GetFacilityPartyRoles;
 import minutmiljo.GetFoodFacilities;
@@ -29,18 +27,19 @@ import minutmiljo.GetParty;
 import minutmiljo.SearchFacility;
 import minutmiljo.SearchFacilityResponse;
 import minutmiljo.SearchFacilityResultSvcDto;
+import se.sundsvall.businessinformation.TestUtil;
 
 @ExtendWith(MockitoExtension.class)
 class EcosIntegrationTest {
 
 	@Mock
-	EcosClient client;
+	private EcosClient client;
 
 	@InjectMocks
-	EcosIntegration integration;
+	private EcosIntegration integration;
 
 	@ParameterizedTest()
-	@ValueSource(strings = {"123456-7890", "12123456-7890"})
+	@ValueSource(strings = { "123456-7890", "12123456-7890" })
 	void getFacilities(final String orgNr) {
 
 		when(client.searchFacility(any(SearchFacility.class))).thenReturn(buildSearchFacilityResult());
@@ -52,7 +51,7 @@ class EcosIntegrationTest {
 		// orientation at this given time.
 		assertThat(result.getFirst()).hasNoNullFieldsOrPropertiesExcept("huvudsakliginriktning");
 
-		verify(client, times(1)).searchFacility(any(SearchFacility.class));
+		verify(client).searchFacility(any(SearchFacility.class));
 		verifyNoMoreInteractions(client);
 	}
 
@@ -79,8 +78,7 @@ class EcosIntegrationTest {
 
 		assertThatExceptionOfType(ThrowableProblem.class)
 			.isThrownBy(() -> integration.getFacilities("someOrgNr"))
-			.withMessage("Bad Request: organizationNumber must consist of 10 or 12 digits with " +
-				"the last four seperated with a hyphen");
+			.withMessage("Bad Request: organizationNumber must consist of 10 or 12 digits with the last four seperated with a hyphen");
 
 		verifyNoInteractions(client);
 	}
@@ -90,7 +88,6 @@ class EcosIntegrationTest {
 
 		when(client.getFoodFacilities(any())).thenReturn(TestUtil.getFoodFacilitiesResponse());
 		when(client.searchFacility(any(SearchFacility.class))).thenReturn(TestUtil.searchFacilityResponse());
-
 		when(client.getFacilityPartyRoles(any(GetFacilityPartyRoles.class))).thenReturn(TestUtil.getFacilityPartyRolesResponse());
 		when(client.getParty(any(GetParty.class))).thenReturn(TestUtil.getPartyResponse(), TestUtil.getOrganisationParty());
 
@@ -99,9 +96,9 @@ class EcosIntegrationTest {
 		assertThat(result).isNotNull().hasNoNullFieldsOrPropertiesExcept("mobilAnlaggning");
 
 		verify(client, times(2)).getParty(any(GetParty.class));
-		verify(client, times(1)).getFacilityPartyRoles(any(GetFacilityPartyRoles.class));
-		verify(client, times(1)).getFoodFacilities(any(GetFoodFacilities.class));
-		verify(client, times(1)).searchFacility(any(SearchFacility.class));
+		verify(client).getFacilityPartyRoles(any(GetFacilityPartyRoles.class));
+		verify(client).getFoodFacilities(any(GetFoodFacilities.class));
+		verify(client).searchFacility(any(SearchFacility.class));
 		verifyNoMoreInteractions(client);
 	}
 
@@ -110,7 +107,6 @@ class EcosIntegrationTest {
 
 		when(client.getFoodFacilities(any())).thenReturn(TestUtil.getFoodFacilitiesResponseWithOnlyFacilityCollectionName());
 		when(client.searchFacility(any(SearchFacility.class))).thenReturn(TestUtil.searchFacilityResponse());
-
 		when(client.getFacilityPartyRoles(any(GetFacilityPartyRoles.class))).thenReturn(TestUtil.getFacilityPartyRolesResponse());
 		when(client.getParty(any(GetParty.class))).thenReturn(TestUtil.getPartyResponse(), TestUtil.getOrganisationParty());
 
@@ -119,9 +115,9 @@ class EcosIntegrationTest {
 		assertThat(result).isNotNull().hasNoNullFieldsOrPropertiesExcept("mobilAnlaggning");
 
 		verify(client, times(2)).getParty(any(GetParty.class));
-		verify(client, times(1)).getFacilityPartyRoles(any(GetFacilityPartyRoles.class));
-		verify(client, times(1)).getFoodFacilities(any(GetFoodFacilities.class));
-		verify(client, times(1)).searchFacility(any(SearchFacility.class));
+		verify(client).getFacilityPartyRoles(any(GetFacilityPartyRoles.class));
+		verify(client).getFoodFacilities(any(GetFoodFacilities.class));
+		verify(client).searchFacility(any(SearchFacility.class));
 
 		verifyNoMoreInteractions(client);
 	}
@@ -132,7 +128,6 @@ class EcosIntegrationTest {
 
 		assertThat(result).isNotNull();
 		verifyNoInteractions(client);
-
 	}
 
 	@Test
@@ -148,5 +143,4 @@ class EcosIntegrationTest {
 
 		verifyNoMoreInteractions(client);
 	}
-
 }

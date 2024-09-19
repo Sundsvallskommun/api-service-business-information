@@ -19,27 +19,25 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import se.sundsvall.dept44.security.Truststore;
-
 import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.Route;
-
+import se.sundsvall.dept44.security.Truststore;
 
 @ExtendWith(MockitoExtension.class)
 class EcosConfigurationTest {
 
 	@Mock
-	TrustManagerFactory trustManagerFactory;
+	private TrustManagerFactory trustManagerFactory;
 
 	@Mock
-	X509TrustManager x509TrustManager;
+	private X509TrustManager x509TrustManager;
 
 	@Mock
-	SSLSocketFactory sslSocketFactory;
+	private SSLSocketFactory sslSocketFactory;
 
 	@Mock
-	SSLContext sslContext;
+	private SSLContext sslContext;
 
 	@Mock
 	private EcosProperties ecosProperties;
@@ -59,30 +57,32 @@ class EcosConfigurationTest {
 	@Test
 	void okHttpClient() {
 
-
 		// Arrange
 		when(trustStore.getTrustManagerFactory()).thenReturn(trustManagerFactory);
 		when(trustStore.getSSLContext()).thenReturn(sslContext);
 		when(trustStore.getSSLContext().getSocketFactory()).thenReturn(sslSocketFactory);
-		when(trustManagerFactory.getTrustManagers()).thenReturn(new TrustManager[]{x509TrustManager});
-		when(x509TrustManager.getAcceptedIssuers()).thenReturn(new X509Certificate[]{}); // Empty array
+		when(trustManagerFactory.getTrustManagers()).thenReturn(new TrustManager[] { x509TrustManager });
+		when(x509TrustManager.getAcceptedIssuers()).thenReturn(new X509Certificate[] {}); // Empty array
 
 		// Act
 		final var result = ecosConfiguration.okHttpClient(trustStore);
+
 		// Assert
 		assertThat(result).isNotNull();
 	}
 
 	@Test
 	void feignBuilderCustomizer() {
+
 		// Act
 		final var result = ecosConfiguration.feignBuilderCustomizer(ecosProperties);
+
 		// Assert
 		assertThat(result).isNotNull();
 	}
 
 	@ParameterizedTest
-	@ValueSource(strings = {"NTLM", "NTLM TlRMTVNTUAACAAAAAAAAACgAAAABggAAU3J2Tm9uY2UAAAAAAAAAAA==", "somethingElse"})
+	@ValueSource(strings = { "NTLM", "NTLM TlRMTVNTUAACAAAAAAAAACgAAAABggAAU3J2Tm9uY2UAAAAAAAAAAA==", "somethingElse" })
 	void ntlmAuthenticator(final String value) {
 
 		// Arrange
@@ -96,9 +96,6 @@ class EcosConfigurationTest {
 		final var result = authenticator.authenticate(route, response);
 
 		// Assert
-		assertThat(result).isNotNull().satisfies(
-			req -> assertThat(req.header("Authorization")).startsWith("NTLM"));
-
+		assertThat(result).isNotNull().satisfies(req -> assertThat(req.header("Authorization")).startsWith("NTLM"));
 	}
-
 }

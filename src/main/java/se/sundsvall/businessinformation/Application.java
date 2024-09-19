@@ -1,18 +1,17 @@
 package se.sundsvall.businessinformation;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import static org.springframework.boot.SpringApplication.run;
+
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
+import se.sundsvall.dept44.ServiceApplication;
 import se.sundsvall.dept44.util.jacoco.ExcludeFromJacocoGeneratedCoverageReport;
 
 @EnableFeignClients
-@SpringBootApplication
 @ExcludeFromJacocoGeneratedCoverageReport
+@ServiceApplication
 public class Application {
-
-	public static void main(final String[] args) {
-		SpringApplication.run(Application.class, args);
+	public static void main(final String... args) {
+		run(Application.class, args);
 	}
-
 }

@@ -1,6 +1,7 @@
 package se.sundsvall.businessinformation.integration.ecos.model;
 
 public enum FacilityStatus {
+
 	ANMALD("88E11CAA-DF35-4C5E-94A8-3C7B0369D8F2"),
 	INAKTIV("64B2DB7A-9A11-4F20-A57C-8122B1A469E6"),
 	AKTIV("D203BB33-EB9A-4679-8E1C-BBD8AF86E554"),

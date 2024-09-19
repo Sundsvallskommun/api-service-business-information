@@ -1,7 +1,8 @@
 package se.sundsvall.businessinformation.util;
 
+import static java.time.format.DateTimeFormatter.ISO_DATE;
+
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 import jakarta.xml.bind.annotation.adapters.XmlAdapter;
 
@@ -13,7 +14,7 @@ public class LocalDateAdapter extends XmlAdapter<String, LocalDate> {
 			return null;
 		}
 
-		return DateTimeFormatter.ISO_DATE.parse(s, LocalDate::from);
+		return ISO_DATE.parse(s, LocalDate::from);
 	}
 
 	@Override
@@ -22,7 +23,6 @@ public class LocalDateAdapter extends XmlAdapter<String, LocalDate> {
 			return null;
 		}
 
-		return DateTimeFormatter.ISO_DATE.format(localDate);
+		return ISO_DATE.format(localDate);
 	}
-
 }

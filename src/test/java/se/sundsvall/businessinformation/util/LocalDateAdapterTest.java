@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test;
 
 class LocalDateAdapterTest {
 
-
 	private final LocalDateAdapter adapter = new LocalDateAdapter();
 
 	@Test
@@ -61,11 +60,10 @@ class LocalDateAdapterTest {
 	@Test
 	void testMarshalNull() {
 
-		//  Act
+		// Act
 		final var result = adapter.marshal(null);
 
 		// Assert
 		assertNull(result);
 	}
-
 }

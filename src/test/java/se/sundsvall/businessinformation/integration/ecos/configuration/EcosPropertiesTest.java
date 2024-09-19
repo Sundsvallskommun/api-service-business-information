@@ -16,7 +16,6 @@ class EcosPropertiesTest {
 	@Autowired
 	private EcosProperties properties;
 
-
 	@Test
 	void testProperties() {
 		assertThat(properties.connectTimeout()).isEqualTo(5);
@@ -24,5 +23,4 @@ class EcosPropertiesTest {
 		assertThat(properties.username()).isEqualTo("someUsername");
 		assertThat(properties.password()).isEqualTo("somePassword");
 	}
-
 }

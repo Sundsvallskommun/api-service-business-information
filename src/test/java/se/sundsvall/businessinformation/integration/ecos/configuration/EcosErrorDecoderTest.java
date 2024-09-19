@@ -8,26 +8,19 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import jakarta.xml.soap.SOAPBody;
-import jakarta.xml.soap.SOAPException;
-import jakarta.xml.soap.SOAPFault;
-import jakarta.xml.soap.SOAPMessage;
-
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import se.sundsvall.dept44.exception.ClientProblem;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import feign.Response;
+import se.sundsvall.dept44.exception.ClientProblem;
 
+@ExtendWith(MockitoExtension.class)
 class EcosErrorDecoderTest {
 
+	@InjectMocks
 	private EcosErrorDecoder errorDecoder;
-
-	@BeforeEach
-	void setUp() {
-		errorDecoder = new EcosErrorDecoder();
-	}
 
 	@Test
 	void shouldDecodeEmptyResponse() {
@@ -64,25 +57,13 @@ class EcosErrorDecoderTest {
 	void shouldDecodeSOAPFault() throws Exception {
 		// given
 		final Response response = mock(Response.class);
-		final InputStream inputStream = new ByteArrayInputStream("<soap:Envelope xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\"><soap:Body><soap:Fault><faultcode>soap:Server</faultcode><faultstring>Internal Server Error</faultstring></soap:Fault></soap:Body></soap:Envelope>".getBytes());
+		final InputStream inputStream = new ByteArrayInputStream(
+			"<soap:Envelope xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\"><soap:Body><soap:Fault><faultcode>soap:Server</faultcode><faultstring>Internal Server Error</faultstring></soap:Fault></soap:Body></soap:Envelope>".getBytes());
 		final Response.Body body = mock(Response.Body.class);
 		when(response.body()).thenReturn(body);
 		when(body.asInputStream()).thenReturn(inputStream);
 
-		final var decoder = new EcosErrorDecoder() {
-
-			@Override
-			protected SOAPMessage createSOAPMessage(final InputStream inputStream) throws SOAPException, IOException {
-				final SOAPMessage message = mock(SOAPMessage.class);
-				final SOAPBody soapBody = mock(SOAPBody.class);
-				final SOAPFault soapFault = mock(SOAPFault.class);
-				when(soapBody.hasFault()).thenReturn(true);
-				when(soapBody.getFault()).thenReturn(soapFault);
-				when(soapFault.getFaultString()).thenReturn("Internal Server Error");
-				when(message.getSOAPBody()).thenReturn(soapBody);
-				return message;
-			}
-		};
+		final var decoder = new EcosErrorDecoder();
 
 		// when
 		final Exception decodedError = decoder.decode("someMethodKey", response);
@@ -91,5 +72,4 @@ class EcosErrorDecoderTest {
 		assertThat(decodedError).isInstanceOf(ClientProblem.class);
 		assertThat(decodedError.getMessage()).isEqualTo("Bad Request: Bad request exception from Ecos Internal Server Error");
 	}
-
 }
