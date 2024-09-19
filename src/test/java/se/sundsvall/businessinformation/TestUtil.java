@@ -23,7 +23,7 @@ import minutmiljo.PersonSvcDto;
 import minutmiljo.SearchFacilityResponse;
 import minutmiljo.SearchFacilityResultSvcDto;
 
-public class TestUtil {
+public final class TestUtil {
 
 	public static GetPartyResponse getPartyResponse() {
 		return new GetPartyResponse()
@@ -47,8 +47,7 @@ public class TestUtil {
 							.withAddressTypeSvcDto(new AddressTypeSvcDto()
 								.withId("EEF91381-7025-4FE7-B5FA-92FB2B77976B")))
 						.withPostCode("somePostCode")
-						.withCountry("someCountry")
-					))));
+						.withCountry("someCountry")))));
 	}
 
 	public static GetPartyResponse getOrganisationParty() {
@@ -72,18 +71,16 @@ public class TestUtil {
 							.withAddressTypeSvcDto(new AddressTypeSvcDto()
 								.withId("EEF91381-7025-4FE7-B5FA-92FB2B77976B")))
 						.withPostCode("somePostCode")
-						.withCountry("someCountry")
-					))));
+						.withCountry("someCountry")))));
 	}
 
 	public static GetFacilityPartyRolesResponse getFacilityPartyRolesResponse() {
-
 		return new GetFacilityPartyRolesResponse()
 			.withGetFacilityPartyRolesResult(new ArrayOfConnectedRoleSvcDto()
 				.withConnectedRoleSvcDto(List.of(new ConnectedRoleSvcDto()
-						.withConnectionId("someConnectionId")
-						.withPartyId("somePartyId")
-						.withRoleId("480E2731-1F2F-4F35-8A37-FDDE957E9CD0"),
+					.withConnectionId("someConnectionId")
+					.withPartyId("somePartyId")
+					.withRoleId("480E2731-1F2F-4F35-8A37-FDDE957E9CD0"),
 					new ConnectedRoleSvcDto()
 						.withConnectionId("someOtherConnectionId")
 						.withPartyId("someOtherPartyId")
@@ -117,5 +114,4 @@ public class TestUtil {
 					.withVistingAddress("someVisitingAdress")
 					.withEstateDesignation("someEstateDesignation"))));
 	}
-
 }

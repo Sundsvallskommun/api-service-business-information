@@ -63,5 +63,4 @@ class LocalDateTimeAdapterTest {
 		// Assert
 		assertNull(result);
 	}
-
 }

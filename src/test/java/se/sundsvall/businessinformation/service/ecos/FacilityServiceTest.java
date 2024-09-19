@@ -2,7 +2,6 @@ package se.sundsvall.businessinformation.service.ecos;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
@@ -14,8 +13,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
-import se.sundsvall.businessinformation.integration.ecos.EcosIntegration;
 
 import generated.se.sundsvall.forratt.Adress;
 import generated.se.sundsvall.forratt.AdresstypEnum;
@@ -31,16 +28,16 @@ import generated.se.sundsvall.forratt.Livsmedelsverksamhet;
 import generated.se.sundsvall.forratt.OmfattningEnum;
 import generated.se.sundsvall.forratt.ProduktgruppEnum;
 import generated.se.sundsvall.forratt.RollEnum;
+import se.sundsvall.businessinformation.integration.ecos.EcosIntegration;
 
 @ExtendWith(MockitoExtension.class)
 class FacilityServiceTest {
 
 	@Mock
-	EcosIntegration integration;
+	private EcosIntegration integration;
 
 	@InjectMocks
-	FacilityService service;
-
+	private FacilityService service;
 
 	@Test
 	void getFacilities() {
@@ -52,7 +49,6 @@ class FacilityServiceTest {
 				.gatuadress("someGatuadress")
 				.ort("someOrt")));
 
-
 		final var result = service.getFacilities("someOrgNr");
 
 		assertThat(result).isNotNull().hasSize(1);
@@ -60,9 +56,8 @@ class FacilityServiceTest {
 		// orientation at this given time.
 		assertThat(result.getFirst()).hasNoNullFieldsOrPropertiesExcept("huvudsakliginriktning");
 
-		verify(integration, times(1)).getFacilities(any(String.class));
+		verify(integration).getFacilities(any(String.class));
 		verifyNoMoreInteractions(integration);
-
 	}
 
 	@Test
@@ -88,7 +83,7 @@ class FacilityServiceTest {
 		final var result = service.getFacility("someAnlaggningID");
 		assertThat(result).isNotNull().hasNoNullFieldsOrProperties();
 
-		verify(integration, times(1)).getFacility(any(String.class));
+		verify(integration).getFacility(any(String.class));
 		verifyNoMoreInteractions(integration);
 	}
 
@@ -106,7 +101,7 @@ class FacilityServiceTest {
 		final var result = service.getLivsmedelsverksamhet("someAnlaggningID");
 		assertThat(result).isNotNull().hasNoNullFieldsOrProperties();
 
-		verify(integration, times(1)).getLivsmedelsverksamhet(any(String.class));
+		verify(integration).getLivsmedelsverksamhet(any(String.class));
 		verifyNoMoreInteractions(integration);
 	}
 
@@ -125,8 +120,7 @@ class FacilityServiceTest {
 		final var result = service.getFakturering("someAnlaggningID");
 		assertThat(result).isNotNull().hasNoNullFieldsOrProperties();
 
-		verify(integration, times(1)).getFakturering(any(String.class));
+		verify(integration).getFakturering(any(String.class));
 		verifyNoMoreInteractions(integration);
 	}
-
 }

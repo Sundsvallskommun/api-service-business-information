@@ -2,7 +2,6 @@ package se.sundsvall.businessinformation.api;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
@@ -15,21 +14,22 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import se.sundsvall.businessinformation.service.ecos.FacilityService;
-
 import generated.se.sundsvall.forratt.Anlaggningar;
+import se.sundsvall.businessinformation.service.ecos.FacilityService;
 
 @ExtendWith(MockitoExtension.class)
 class FacilitiesResourceTest {
 
 	@Mock
-	FacilityService service;
+	private FacilityService service;
 
 	@InjectMocks
-	FacilitiesResource resource;
+	private FacilitiesResource resource;
 
 	@Test
 	void getAnlaggningar() {
+
+		final var municipalityId = "2281";
 
 		when(service.getFacilities(any(String.class))).thenReturn(List.of(
 			new Anlaggningar()
@@ -38,8 +38,7 @@ class FacilitiesResourceTest {
 				.gatuadress("someGatuadress")
 				.ort("someOrt")));
 
-		final var result = resource.getAnlaggningar("someOrgNr");
-
+		final var result = resource.getAnlaggningar(municipalityId, "someOrgNr");
 
 		assertThat(result.getStatusCode().is2xxSuccessful()).isTrue();
 		assertThat(result.getBody()).isNotNull();
@@ -47,8 +46,7 @@ class FacilitiesResourceTest {
 		// orientation at this given time.
 		assertThat(result.getBody().getFirst()).hasNoNullFieldsOrPropertiesExcept("huvudsakliginriktning");
 
-		verify(service, times(1)).getFacilities(any(String.class));
+		verify(service).getFacilities(any(String.class));
 		verifyNoMoreInteractions(service);
 	}
-
 }
