@@ -20,15 +20,23 @@ public interface EcosClient {
 
 	String TEXT_XML_UTF8 = "text/xml;charset=UTF-8";
 
-	@PostMapping(consumes = TEXT_XML_UTF8, headers = { "SOAPAction=urn:Ecos.API.MinutMiljo.Service.V1/IMinutMiljoService/SearchFacility" })
+	@PostMapping(consumes = TEXT_XML_UTF8, headers = {
+		"SOAPAction=urn:Ecos.API.MinutMiljo.Service.V1/IMinutMiljoService/SearchFacility"
+	})
 	SearchFacilityResponse searchFacility(SearchFacility searchFacility);
 
-	@PostMapping(consumes = TEXT_XML_UTF8, headers = { "SOAPAction=urn:Ecos.API.MinutMiljo.Service.V1/IMinutMiljoService/GetFoodFacilities" })
+	@PostMapping(consumes = TEXT_XML_UTF8, headers = {
+		"SOAPAction=urn:Ecos.API.MinutMiljo.Service.V1/IMinutMiljoService/GetFoodFacilities"
+	})
 	GetFoodFacilitiesResponse getFoodFacilities(GetFoodFacilities getFoodFacilities);
 
-	@PostMapping(consumes = TEXT_XML_UTF8, headers = { "SOAPAction=urn:Ecos.API.MinutMiljo.Service.V1/IMinutMiljoService/GetFacilityPartyRoles" })
+	@PostMapping(consumes = TEXT_XML_UTF8, headers = {
+		"SOAPAction=urn:Ecos.API.MinutMiljo.Service.V1/IMinutMiljoService/GetFacilityPartyRoles"
+	})
 	GetFacilityPartyRolesResponse getFacilityPartyRoles(GetFacilityPartyRoles getFacilityPartyRoles);
 
-	@PostMapping(consumes = TEXT_XML_UTF8, headers = { "SOAPAction=urn:Ecos.API.MinutMiljo.Service.V1/IMinutMiljoService/GetParty" })
+	@PostMapping(consumes = TEXT_XML_UTF8, headers = {
+		"SOAPAction=urn:Ecos.API.MinutMiljo.Service.V1/IMinutMiljoService/GetParty"
+	})
 	GetPartyResponse getParty(GetParty withPartyId);
 }

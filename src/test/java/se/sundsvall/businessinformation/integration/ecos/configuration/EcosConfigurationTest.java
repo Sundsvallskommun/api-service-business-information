@@ -61,7 +61,9 @@ class EcosConfigurationTest {
 		when(trustStore.getTrustManagerFactory()).thenReturn(trustManagerFactory);
 		when(trustStore.getSSLContext()).thenReturn(sslContext);
 		when(trustStore.getSSLContext().getSocketFactory()).thenReturn(sslSocketFactory);
-		when(trustManagerFactory.getTrustManagers()).thenReturn(new TrustManager[] { x509TrustManager });
+		when(trustManagerFactory.getTrustManagers()).thenReturn(new TrustManager[] {
+			x509TrustManager
+		});
 		when(x509TrustManager.getAcceptedIssuers()).thenReturn(new X509Certificate[] {}); // Empty array
 
 		// Act
@@ -82,7 +84,9 @@ class EcosConfigurationTest {
 	}
 
 	@ParameterizedTest
-	@ValueSource(strings = { "NTLM", "NTLM TlRMTVNTUAACAAAAAAAAACgAAAABggAAU3J2Tm9uY2UAAAAAAAAAAA==", "somethingElse" })
+	@ValueSource(strings = {
+		"NTLM", "NTLM TlRMTVNTUAACAAAAAAAAACgAAAABggAAU3J2Tm9uY2UAAAAAAAAAAA==", "somethingElse"
+	})
 	void ntlmAuthenticator(final String value) {
 
 		// Arrange
