@@ -15,11 +15,11 @@ Tillhandahåller information om livsmedelsanläggningar
 Konfiguration sker i filen `src/main/resources/application.properties` genom att sätta nedanstående
 properties till önskade värden:
 
-| Property                    | Beskrivning                  |
+|          Property           |         Beskrivning          |
 |-----------------------------|------------------------------|
-| `integration.ecos.url`      | URL till ECOS-miljön         
-| `integration.ecos.username` | Användarnamn för ECOS-miljön 
-| `integration.ecos.password` | Lösenord för ECOS-miljön     
+| `integration.ecos.url`      | URL till ECOS-miljön         |
+| `integration.ecos.username` | Användarnamn för ECOS-miljön |
+| `integration.ecos.password` | Lösenord för ECOS-miljön     |
 
 ### Paketera och starta tjänsten
 
@@ -58,6 +58,6 @@ docker run -i --rm -p 8080:8080 evil.sundsvall.se/ms-business-information:latest
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=Sundsvallskommun_api-service-business-information&metric=vulnerabilities)](https://sonarcloud.io/summary/overall?id=Sundsvallskommun_api-service-business-information)
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=Sundsvallskommun_api-service-business-information&metric=bugs)](https://sonarcloud.io/summary/overall?id=Sundsvallskommun_api-service-business-information)
 
-##   
+## 
 
 Copyright (c) 2021 Sundsvalls kommun

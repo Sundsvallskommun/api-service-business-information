@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns="http://maven.apache.org/POM/4.0.0" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>se.sundsvall.dept44</groupId>
 		<artifactId>dept44-service-parent</artifactId>
-		<version>6.0.2</version>
-		<relativePath/>
+		<version>6.0.3</version>
+		<relativePath />
 		<!-- lookup parent from repository -->
 	</parent>
 	<groupId>se.sundsvall</groupId>
@@ -61,18 +60,8 @@
 				<groupId>org.jvnet.jaxb</groupId>
 				<artifactId>jaxb-maven-plugin</artifactId>
 				<version>${jaxb-plugins.version}</version>
-				<executions>
-					<execution>
-						<id>generate-sources</id>
-						<goals>
-							<goal>generate</goal>
-						</goals>
-					</execution>
-				</executions>
 				<configuration>
-					<bindingDirectory>
-						${project.basedir}/src/main/resources/integrations/ecos/xjb
-					</bindingDirectory>
+					<bindingDirectory>${project.basedir}/src/main/resources/integrations/ecos/xjb</bindingDirectory>
 					<extension>true</extension>
 					<args>
 						<arg>-wsdl</arg>
@@ -89,12 +78,17 @@
 					<schemaIncludes>
 						<include>**/*.wsdl</include>
 					</schemaIncludes>
-					<generateDirectory>
-						${generated-sources-path}/${generated-sources-java-path}
-					</generateDirectory>
-					<schemaDirectory>${project.basedir}/src/main/resources/integrations/ecos
-					</schemaDirectory>
+					<generateDirectory>${generated-sources-path}/${generated-sources-java-path}</generateDirectory>
+					<schemaDirectory>${project.basedir}/src/main/resources/integrations/ecos</schemaDirectory>
 				</configuration>
+				<executions>
+					<execution>
+						<id>generate-sources</id>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 			<plugin>
 				<groupId>org.openapitools</groupId>
@@ -106,9 +100,7 @@
 							<goal>generate</goal>
 						</goals>
 						<configuration>
-							<inputSpec>
-								${project.basedir}/src/main/resources/integrations/ecos/forratt/forratt.yml
-							</inputSpec>
+							<inputSpec>${project.basedir}/src/main/resources/integrations/ecos/forratt/forratt.yml</inputSpec>
 							<output>${generated-sources-path}</output>
 							<generatorName>spring</generatorName>
 							<generateApis>false</generateApis>
@@ -135,14 +127,13 @@
 				<executions>
 					<execution>
 						<id>add-generated-source</id>
-						<phase>initialize</phase>
 						<goals>
 							<goal>add-source</goal>
 						</goals>
+						<phase>initialize</phase>
 						<configuration>
 							<sources>
-								<source>${generated-sources-path}/${generated-sources-java-path}
-								</source>
+								<source>${generated-sources-path}/${generated-sources-java-path}</source>
 							</sources>
 						</configuration>
 					</execution>

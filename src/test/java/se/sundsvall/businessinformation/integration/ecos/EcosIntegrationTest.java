@@ -39,7 +39,9 @@ class EcosIntegrationTest {
 	private EcosIntegration integration;
 
 	@ParameterizedTest()
-	@ValueSource(strings = { "123456-7890", "12123456-7890" })
+	@ValueSource(strings = {
+		"123456-7890", "12123456-7890"
+	})
 	void getFacilities(final String orgNr) {
 
 		when(client.searchFacility(any(SearchFacility.class))).thenReturn(buildSearchFacilityResult());
