@@ -2,18 +2,16 @@ package se.sundsvall.businessinformation.integration.ecos.configuration;
 
 import static org.zalando.problem.Status.BAD_REQUEST;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Optional;
-
-import org.zalando.problem.ThrowableProblem;
-
 import feign.Response;
 import feign.codec.ErrorDecoder;
 import jakarta.xml.soap.MessageFactory;
 import jakarta.xml.soap.SOAPConstants;
 import jakarta.xml.soap.SOAPException;
 import jakarta.xml.soap.SOAPMessage;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Optional;
+import org.zalando.problem.ThrowableProblem;
 import se.sundsvall.dept44.exception.ClientProblem;
 
 public class EcosErrorDecoder implements ErrorDecoder {

@@ -1,21 +1,13 @@
 package se.sundsvall.businessinformation.integration.ecos.configuration;
 
-import java.nio.charset.StandardCharsets;
-
-import javax.net.ssl.X509TrustManager;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.cloud.openfeign.FeignBuilderCustomizer;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Import;
-
 import feign.Client;
 import feign.jaxb.JAXBContextFactory;
 import feign.okhttp.OkHttpClient;
 import feign.soap.SOAPDecoder;
 import feign.soap.SOAPEncoder;
 import jakarta.xml.soap.SOAPConstants;
+import java.nio.charset.StandardCharsets;
+import javax.net.ssl.X509TrustManager;
 import jcifs.ntlmssp.Type1Message;
 import jcifs.ntlmssp.Type2Message;
 import jcifs.ntlmssp.Type3Message;
@@ -24,6 +16,11 @@ import okhttp3.Authenticator;
 import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.Route;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.cloud.openfeign.FeignBuilderCustomizer;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Import;
 import se.sundsvall.dept44.configuration.feign.FeignConfiguration;
 import se.sundsvall.dept44.configuration.feign.FeignMultiCustomizer;
 import se.sundsvall.dept44.security.Truststore;

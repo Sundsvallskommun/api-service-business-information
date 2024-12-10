@@ -2,24 +2,17 @@ package se.sundsvall.businessinformation.integration.ecos;
 
 import static org.zalando.problem.Status.BAD_REQUEST;
 
+import generated.se.sundsvall.forratt.Anlaggning;
+import generated.se.sundsvall.forratt.Anlaggningar;
+import generated.se.sundsvall.forratt.Faktura;
+import generated.se.sundsvall.forratt.Kontaktperson;
+import generated.se.sundsvall.forratt.Livsmedelsverksamhet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 import java.util.function.Predicate;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.stereotype.Component;
-import org.zalando.problem.Problem;
-
-import generated.se.sundsvall.forratt.Anlaggning;
-import generated.se.sundsvall.forratt.Anlaggningar;
-import generated.se.sundsvall.forratt.Faktura;
-import generated.se.sundsvall.forratt.Kontaktperson;
-import generated.se.sundsvall.forratt.Livsmedelsverksamhet;
 import minutmiljo.ArrayOfFacilityFilterSvcDto;
 import minutmiljo.ArrayOfguid;
 import minutmiljo.ConnectedRoleSvcDto;
@@ -37,6 +30,11 @@ import minutmiljo.PersonSvcDto;
 import minutmiljo.SearchFacility;
 import minutmiljo.SearchFacilityResultSvcDto;
 import minutmiljo.SearchFacilitySvcDto;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.stereotype.Component;
+import org.zalando.problem.Problem;
 import se.sundsvall.businessinformation.integration.ecos.configuration.EcosProperties;
 import se.sundsvall.businessinformation.integration.ecos.model.FacilityStatus;
 import se.sundsvall.businessinformation.integration.ecos.model.FacilityType;
