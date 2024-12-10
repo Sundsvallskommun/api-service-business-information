@@ -2,9 +2,8 @@ package se.sundsvall.businessinformation.util;
 
 import static java.time.format.DateTimeFormatter.ISO_DATE;
 
-import java.time.LocalDate;
-
 import jakarta.xml.bind.annotation.adapters.XmlAdapter;
+import java.time.LocalDate;
 
 public class LocalDateAdapter extends XmlAdapter<String, LocalDate> {
 

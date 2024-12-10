@@ -1,8 +1,5 @@
 package se.sundsvall.businessinformation.integration.ecos;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import generated.se.sundsvall.forratt.Adress;
 import generated.se.sundsvall.forratt.AdresstypEnum;
 import generated.se.sundsvall.forratt.Anlaggning;
@@ -12,6 +9,8 @@ import generated.se.sundsvall.forratt.Kontaktperson;
 import generated.se.sundsvall.forratt.Kontaktuppgift;
 import generated.se.sundsvall.forratt.Livsmedelsverksamhet;
 import generated.se.sundsvall.forratt.RollEnum;
+import java.util.ArrayList;
+import java.util.List;
 import minutmiljo.ArrayOfFacilityFilterSvcDto;
 import minutmiljo.ContactInfoItemSvcDto;
 import minutmiljo.FacilityFacilityCollectionNameFilterSvcDto;

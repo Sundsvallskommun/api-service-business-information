@@ -10,7 +10,13 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
 import java.util.List;
-
+import minutmiljo.ArrayOfSearchFacilityResultSvcDto;
+import minutmiljo.GetFacilityPartyRoles;
+import minutmiljo.GetFoodFacilities;
+import minutmiljo.GetParty;
+import minutmiljo.SearchFacility;
+import minutmiljo.SearchFacilityResponse;
+import minutmiljo.SearchFacilityResultSvcDto;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -19,14 +25,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.zalando.problem.ThrowableProblem;
-
-import minutmiljo.ArrayOfSearchFacilityResultSvcDto;
-import minutmiljo.GetFacilityPartyRoles;
-import minutmiljo.GetFoodFacilities;
-import minutmiljo.GetParty;
-import minutmiljo.SearchFacility;
-import minutmiljo.SearchFacilityResponse;
-import minutmiljo.SearchFacilityResultSvcDto;
 import se.sundsvall.businessinformation.TestUtil;
 
 @ExtendWith(MockitoExtension.class)

@@ -2,9 +2,6 @@ package se.sundsvall.businessinformation.integration.ecos;
 
 import static se.sundsvall.businessinformation.integration.ecos.configuration.EcosConfiguration.REGISTRATION_ID;
 
-import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.PostMapping;
-
 import minutmiljo.GetFacilityPartyRoles;
 import minutmiljo.GetFacilityPartyRolesResponse;
 import minutmiljo.GetFoodFacilities;
@@ -13,6 +10,8 @@ import minutmiljo.GetParty;
 import minutmiljo.GetPartyResponse;
 import minutmiljo.SearchFacility;
 import minutmiljo.SearchFacilityResponse;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.PostMapping;
 import se.sundsvall.businessinformation.integration.ecos.configuration.EcosConfiguration;
 
 @FeignClient(name = REGISTRATION_ID, url = "${integration.ecos.url}", configuration = EcosConfiguration.class)

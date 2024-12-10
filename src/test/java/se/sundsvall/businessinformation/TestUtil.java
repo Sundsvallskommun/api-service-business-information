@@ -1,7 +1,6 @@
 package se.sundsvall.businessinformation;
 
 import java.util.List;
-
 import minutmiljo.AddressTypeSvcDto;
 import minutmiljo.ArrayOfAddressTypeSvcDto;
 import minutmiljo.ArrayOfConnectedRoleSvcDto;

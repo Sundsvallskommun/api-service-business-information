@@ -1,13 +1,11 @@
 package se.sundsvall.businessinformation.service.ecos;
 
-import java.util.List;
-
-import org.springframework.stereotype.Service;
-
 import generated.se.sundsvall.forratt.Anlaggning;
 import generated.se.sundsvall.forratt.Anlaggningar;
 import generated.se.sundsvall.forratt.Faktura;
 import generated.se.sundsvall.forratt.Livsmedelsverksamhet;
+import java.util.List;
+import org.springframework.stereotype.Service;
 import se.sundsvall.businessinformation.integration.ecos.EcosIntegration;
 
 @Service
