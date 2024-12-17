@@ -1,7 +1,8 @@
 package se.sundsvall.businessinformation.integration.ecos;
 
-import static se.sundsvall.businessinformation.integration.ecos.configuration.EcosConfiguration.REGISTRATION_ID;
+import static se.sundsvall.businessinformation.integration.ecos.configuration.EcosConfiguration.CLIENT_ID;
 
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import minutmiljo.GetFacilityPartyRoles;
 import minutmiljo.GetFacilityPartyRolesResponse;
 import minutmiljo.GetFoodFacilities;
@@ -14,7 +15,8 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import se.sundsvall.businessinformation.integration.ecos.configuration.EcosConfiguration;
 
-@FeignClient(name = REGISTRATION_ID, url = "${integration.ecos.url}", configuration = EcosConfiguration.class)
+@FeignClient(name = CLIENT_ID, url = "${integration.ecos.url}", configuration = EcosConfiguration.class)
+@CircuitBreaker(name = CLIENT_ID)
 public interface EcosClient {
 
 	String TEXT_XML_UTF8 = "text/xml;charset=UTF-8";
