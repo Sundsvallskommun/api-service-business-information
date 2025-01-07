@@ -27,22 +27,23 @@ import se.sundsvall.dept44.common.validators.annotation.ValidMunicipalityId;
 @Validated
 @RequestMapping("/{municipalityId}/anlaggning")
 @Tag(name = "anlaggningsuppgifter", description = "Information om en anläggning")
-public class FacilityResource {
+class FacilityResource {
 
 	private final FacilityService service;
 
-	public FacilityResource(final FacilityService service) {
+	FacilityResource(final FacilityService service) {
 		this.service = service;
 	}
 
 	@GetMapping("/{anlaggningsid}")
-	@Operation(summary = "Hämta uppgifter om anläggningen med angivet anläggningsid", description = "Returnerar uppgifter om en anläggning")
-	@ApiResponse(responseCode = "200", description = "Successful operation", useReturnTypeSchema = true)
-	@ApiResponse(responseCode = "400", description = "Bad request", content = @Content(mediaType = APPLICATION_PROBLEM_JSON_VALUE, schema = @Schema(oneOf = {
-		Problem.class, ConstraintViolationProblem.class
-	})))
-	@ApiResponse(responseCode = "500", description = "Internal Server error", content = @Content(mediaType = APPLICATION_PROBLEM_JSON_VALUE, schema = @Schema(implementation = Problem.class)))
-	public ResponseEntity<Anlaggning> getAnlaggning(
+	@Operation(summary = "Hämta uppgifter om anläggningen med angivet anläggningsid", description = "Returnerar uppgifter om en anläggning", responses = {
+		@ApiResponse(responseCode = "200", description = "Successful operation", useReturnTypeSchema = true),
+		@ApiResponse(responseCode = "400", description = "Bad request", content = @Content(mediaType = APPLICATION_PROBLEM_JSON_VALUE, schema = @Schema(oneOf = {
+			Problem.class, ConstraintViolationProblem.class
+		}))),
+		@ApiResponse(responseCode = "500", description = "Internal Server error", content = @Content(mediaType = APPLICATION_PROBLEM_JSON_VALUE, schema = @Schema(implementation = Problem.class)))
+	})
+	ResponseEntity<Anlaggning> getAnlaggning(
 		@Parameter(name = "municipalityId", description = "Municipality id", example = "2281") @ValidMunicipalityId @PathVariable final String municipalityId,
 		@Schema(description = "Anläggningsid för den anläggning som ska hämtas") @PathVariable final String anlaggningsid) {
 
@@ -54,13 +55,15 @@ public class FacilityResource {
 		summary = "Hämta uppgifter om livsmedelsverksamheten vid angiven anläggning*",
 		description = """
 			*Den här endpointen kommer inte returnera någon data då underliggande system inte tillhandahåller den information som ska returneras.
-			"Returnerar uppgifter om en anläggnings livsmedelsverksamhet. Med livsmedelsverksamhet avses huvudsaklig inriktning, aktiviteter, produktgrupper och eventuella tredjepartscertifieringar.""")
-	@ApiResponse(responseCode = "200", description = "Successful operation", useReturnTypeSchema = true)
-	@ApiResponse(responseCode = "400", description = "Bad request", content = @Content(mediaType = APPLICATION_PROBLEM_JSON_VALUE, schema = @Schema(oneOf = {
-		Problem.class, ConstraintViolationProblem.class
-	})))
-	@ApiResponse(responseCode = "500", description = "Internal Server error", content = @Content(mediaType = APPLICATION_PROBLEM_JSON_VALUE, schema = @Schema(implementation = Problem.class)))
-	public ResponseEntity<Livsmedelsverksamhet> getLivsmedelsverksamhet(
+			Returnerar uppgifter om en anläggnings livsmedelsverksamhet. Med livsmedelsverksamhet avses huvudsaklig inriktning, aktiviteter, produktgrupper och eventuella tredjepartscertifieringar.""",
+		responses = {
+			@ApiResponse(responseCode = "200", description = "Successful operation", useReturnTypeSchema = true),
+			@ApiResponse(responseCode = "400", description = "Bad request", content = @Content(mediaType = APPLICATION_PROBLEM_JSON_VALUE, schema = @Schema(oneOf = {
+				Problem.class, ConstraintViolationProblem.class
+			}))),
+			@ApiResponse(responseCode = "500", description = "Internal Server error", content = @Content(mediaType = APPLICATION_PROBLEM_JSON_VALUE, schema = @Schema(implementation = Problem.class)))
+		})
+	ResponseEntity<Livsmedelsverksamhet> getLivsmedelsverksamhet(
 		@Parameter(name = "municipalityId", description = "Municipality id", example = "2281") @ValidMunicipalityId @PathVariable final String municipalityId,
 		@Schema(description = "Anläggningsid för den anläggning som ska hämtas") @PathVariable final String anlaggningsid) {
 
@@ -68,13 +71,14 @@ public class FacilityResource {
 	}
 
 	@GetMapping("/{anlaggningsid}/fakturering")
-	@Operation(summary = "Hämta faktureringsuppgifter för en anläggning", description = "Returnerar faktureringsuppgifter för en anläggning.")
-	@ApiResponse(responseCode = "200", description = "Successful operation", useReturnTypeSchema = true)
-	@ApiResponse(responseCode = "400", description = "Bad request", content = @Content(mediaType = APPLICATION_PROBLEM_JSON_VALUE, schema = @Schema(oneOf = {
-		Problem.class, ConstraintViolationProblem.class
-	})))
-	@ApiResponse(responseCode = "500", description = "Internal Server error", content = @Content(mediaType = APPLICATION_PROBLEM_JSON_VALUE, schema = @Schema(implementation = Problem.class)))
-	public ResponseEntity<Faktura> getFakturering(
+	@Operation(summary = "Hämta faktureringsuppgifter för en anläggning", description = "Returnerar faktureringsuppgifter för en anläggning.", responses = {
+		@ApiResponse(responseCode = "200", description = "Successful operation", useReturnTypeSchema = true),
+		@ApiResponse(responseCode = "400", description = "Bad request", content = @Content(mediaType = APPLICATION_PROBLEM_JSON_VALUE, schema = @Schema(oneOf = {
+			Problem.class, ConstraintViolationProblem.class
+		}))),
+		@ApiResponse(responseCode = "500", description = "Internal Server error", content = @Content(mediaType = APPLICATION_PROBLEM_JSON_VALUE, schema = @Schema(implementation = Problem.class)))
+	})
+	ResponseEntity<Faktura> getFakturering(
 		@Parameter(name = "municipalityId", description = "Municipality id", example = "2281") @ValidMunicipalityId @PathVariable final String municipalityId,
 		@Schema(description = "Anläggningsid för den anläggning vars faktureringsuppgifter ska hämtas") @PathVariable final String anlaggningsid) {
 
