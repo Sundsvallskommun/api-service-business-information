@@ -111,7 +111,7 @@ paths:
       summary: Hämta uppgifter om livsmedelsverksamheten vid angiven anläggning*
       description: |-
         *Den här endpointen kommer inte returnera någon data då underliggande system inte tillhandahåller den information som ska returneras.
-        "Returnerar uppgifter om en anläggnings livsmedelsverksamhet. Med livsmedelsverksamhet avses huvudsaklig inriktning, aktiviteter, produktgrupper och eventuella tredjepartscertifieringar.
+        Returnerar uppgifter om en anläggnings livsmedelsverksamhet. Med livsmedelsverksamhet avses huvudsaklig inriktning, aktiviteter, produktgrupper och eventuella tredjepartscertifieringar.
       operationId: getLivsmedelsverksamhet
       parameters:
       - name: municipalityId
