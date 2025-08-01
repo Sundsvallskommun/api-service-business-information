@@ -1,6 +1,7 @@
 package se.sundsvall.businessinformation.integration.ecos;
 
 import static org.zalando.problem.Status.BAD_REQUEST;
+import static se.sundsvall.dept44.util.LogUtils.sanitizeForLogging;
 
 import generated.se.sundsvall.forratt.Anlaggning;
 import generated.se.sundsvall.forratt.Anlaggningar;
@@ -169,7 +170,7 @@ public class EcosIntegration {
 	}
 
 	public Livsmedelsverksamhet getLivsmedelsverksamhet(final String anlaggningsid) {
-		LOG.info("Fetching Livsmedelsverksamhet for anlaggningsid: {}", anlaggningsid);
+		LOG.info("Fetching Livsmedelsverksamhet for anlaggningsid: {}", sanitizeForLogging(anlaggningsid));
 		return EcosMapper.toLivsmedelsverksamhet();
 	}
 
