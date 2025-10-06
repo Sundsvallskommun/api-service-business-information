@@ -1,43 +1,43 @@
 openapi: 3.0.1
 info:
   title: api-business-information
-  contact: {}
+  contact: { }
   license:
     name: MIT License
     url: https://opensource.org/licenses/MIT
   version: "2.0"
 servers:
-- url: http://localhost:8080
-  description: Generated server url
+  - url: http://localhost:62929
+    description: Generated server url
 tags:
-- name: Anlaggningar
-  description: Anläggningar som står som registrerade och som inte har ett upphört
-    datum ska kunna klassas om.
-- name: anlaggningsuppgifter
-  description: Information om en anläggning
+  - name: Anlaggningar
+    description: Anläggningar som står som registrerade och som inte har ett upphört
+      datum ska kunna klassas om.
+  - name: anlaggningsuppgifter
+    description: Information om en anläggning
 paths:
   /{municipalityId}/anlaggningar/{organisationsnummer}:
     get:
       tags:
-      - Anlaggningar
+        - Anlaggningar
       summary: Hämta aktiva företag/anläggningar med angivet organisationsnummer
       description: Returnerar aktiva anläggningar med angivet organisationsnummer
       operationId: getAnlaggningar
       parameters:
-      - name: municipalityId
-        in: path
-        description: Municipality id
-        required: true
-        schema:
-          type: string
-        example: 2281
-      - name: organisationsnummer
-        in: path
-        description: organisationsnummer för den eller de anläggningar som ska hämtas
-        required: true
-        schema:
-          type: string
+        - name: municipalityId
+          in: path
+          description: Municipality id
+          required: true
+          schema:
+            type: string
+          example: 2281
+        - name: organisationsnummer
+          in: path
           description: organisationsnummer för den eller de anläggningar som ska hämtas
+          required: true
+          schema:
+            type: string
+            description: organisationsnummer för den eller de anläggningar som ska hämtas
       responses:
         "200":
           description: Successful operation
@@ -47,42 +47,42 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/Anlaggningar"
-        "500":
-          description: Internal Server error
-          content:
-            application/problem+json:
-              schema:
-                $ref: "#/components/schemas/Problem"
         "400":
           description: Bad request
           content:
             application/problem+json:
               schema:
                 oneOf:
-                - $ref: "#/components/schemas/Problem"
-                - $ref: "#/components/schemas/ConstraintViolationProblem"
+                  - $ref: "#/components/schemas/Problem"
+                  - $ref: "#/components/schemas/ConstraintViolationProblem"
+        "500":
+          description: Internal Server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Problem"
   /{municipalityId}/anlaggning/{anlaggningsid}:
     get:
       tags:
-      - anlaggningsuppgifter
+        - anlaggningsuppgifter
       summary: Hämta uppgifter om anläggningen med angivet anläggningsid
       description: Returnerar uppgifter om en anläggning
       operationId: getAnlaggning
       parameters:
-      - name: municipalityId
-        in: path
-        description: Municipality id
-        required: true
-        schema:
-          type: string
-        example: 2281
-      - name: anlaggningsid
-        in: path
-        description: Anläggningsid för den anläggning som ska hämtas
-        required: true
-        schema:
-          type: string
+        - name: municipalityId
+          in: path
+          description: Municipality id
+          required: true
+          schema:
+            type: string
+          example: 2281
+        - name: anlaggningsid
+          in: path
           description: Anläggningsid för den anläggning som ska hämtas
+          required: true
+          schema:
+            type: string
+            description: Anläggningsid för den anläggning som ska hämtas
       responses:
         "200":
           description: Successful operation
@@ -90,44 +90,44 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/Anlaggning"
-        "500":
-          description: Internal Server error
-          content:
-            application/problem+json:
-              schema:
-                $ref: "#/components/schemas/Problem"
         "400":
           description: Bad request
           content:
             application/problem+json:
               schema:
                 oneOf:
-                - $ref: "#/components/schemas/Problem"
-                - $ref: "#/components/schemas/ConstraintViolationProblem"
+                  - $ref: "#/components/schemas/Problem"
+                  - $ref: "#/components/schemas/ConstraintViolationProblem"
+        "500":
+          description: Internal Server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Problem"
   /{municipalityId}/anlaggning/{anlaggningsid}/livsmedelsverksamhet:
     get:
       tags:
-      - anlaggningsuppgifter
+        - anlaggningsuppgifter
       summary: Hämta uppgifter om livsmedelsverksamheten vid angiven anläggning*
       description: |-
         *Den här endpointen kommer inte returnera någon data då underliggande system inte tillhandahåller den information som ska returneras.
         Returnerar uppgifter om en anläggnings livsmedelsverksamhet. Med livsmedelsverksamhet avses huvudsaklig inriktning, aktiviteter, produktgrupper och eventuella tredjepartscertifieringar.
       operationId: getLivsmedelsverksamhet
       parameters:
-      - name: municipalityId
-        in: path
-        description: Municipality id
-        required: true
-        schema:
-          type: string
-        example: 2281
-      - name: anlaggningsid
-        in: path
-        description: Anläggningsid för den anläggning som ska hämtas
-        required: true
-        schema:
-          type: string
+        - name: municipalityId
+          in: path
+          description: Municipality id
+          required: true
+          schema:
+            type: string
+          example: 2281
+        - name: anlaggningsid
+          in: path
           description: Anläggningsid för den anläggning som ska hämtas
+          required: true
+          schema:
+            type: string
+            description: Anläggningsid för den anläggning som ska hämtas
       responses:
         "200":
           description: Successful operation
@@ -135,44 +135,44 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/Livsmedelsverksamhet"
-        "500":
-          description: Internal Server error
-          content:
-            application/problem+json:
-              schema:
-                $ref: "#/components/schemas/Problem"
         "400":
           description: Bad request
           content:
             application/problem+json:
               schema:
                 oneOf:
-                - $ref: "#/components/schemas/Problem"
-                - $ref: "#/components/schemas/ConstraintViolationProblem"
+                  - $ref: "#/components/schemas/Problem"
+                  - $ref: "#/components/schemas/ConstraintViolationProblem"
+        "500":
+          description: Internal Server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Problem"
   /{municipalityId}/anlaggning/{anlaggningsid}/fakturering:
     get:
       tags:
-      - anlaggningsuppgifter
+        - anlaggningsuppgifter
       summary: Hämta faktureringsuppgifter för en anläggning
       description: Returnerar faktureringsuppgifter för en anläggning.
       operationId: getFakturering
       parameters:
-      - name: municipalityId
-        in: path
-        description: Municipality id
-        required: true
-        schema:
-          type: string
-        example: 2281
-      - name: anlaggningsid
-        in: path
-        description: Anläggningsid för den anläggning vars faktureringsuppgifter ska
-          hämtas
-        required: true
-        schema:
-          type: string
-          description: Anläggningsid för den anläggning vars faktureringsuppgifter
-            ska hämtas
+        - name: municipalityId
+          in: path
+          description: Municipality id
+          required: true
+          schema:
+            type: string
+          example: 2281
+        - name: anlaggningsid
+          in: path
+          description: Anläggningsid för den anläggning vars faktureringsuppgifter ska
+            hämtas
+          required: true
+          schema:
+            type: string
+            description: Anläggningsid för den anläggning vars faktureringsuppgifter
+              ska hämtas
       responses:
         "200":
           description: Successful operation
@@ -180,24 +180,24 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/Faktura"
-        "500":
-          description: Internal Server error
-          content:
-            application/problem+json:
-              schema:
-                $ref: "#/components/schemas/Problem"
         "400":
           description: Bad request
           content:
             application/problem+json:
               schema:
                 oneOf:
-                - $ref: "#/components/schemas/Problem"
-                - $ref: "#/components/schemas/ConstraintViolationProblem"
+                  - $ref: "#/components/schemas/Problem"
+                  - $ref: "#/components/schemas/ConstraintViolationProblem"
+        "500":
+          description: Internal Server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Problem"
   /api-docs:
     get:
       tags:
-      - API
+        - API
       summary: OpenAPI
       operationId: getApiDocs
       responses:
@@ -215,6 +215,12 @@ components:
     Problem:
       type: object
       properties:
+        title:
+          type: string
+        detail:
+          type: string
+        status:
+          $ref: "#/components/schemas/StatusType"
         instance:
           type: string
           format: uri
@@ -225,12 +231,6 @@ components:
           type: object
           additionalProperties:
             type: object
-        status:
-          $ref: "#/components/schemas/StatusType"
-        detail:
-          type: string
-        title:
-          type: string
     StatusType:
       type: object
       properties:
@@ -279,6 +279,8 @@ components:
           type: string
         message:
           type: string
+        detail:
+          type: string
         instance:
           type: string
           format: uri
@@ -286,8 +288,6 @@ components:
           type: object
           additionalProperties:
             type: object
-        detail:
-          type: string
         suppressed:
           type: array
           items:
@@ -350,6 +350,12 @@ components:
                 type: boolean
         message:
           type: string
+        title:
+          type: string
+        detail:
+          type: string
+        status:
+          $ref: "#/components/schemas/StatusType"
         instance:
           type: string
           format: uri
@@ -360,12 +366,6 @@ components:
           type: object
           additionalProperties:
             type: object
-        status:
-          $ref: "#/components/schemas/StatusType"
-        detail:
-          type: string
-        title:
-          type: string
         suppressed:
           type: array
           items:
@@ -435,8 +435,8 @@ components:
       description: Uppgifter som används för att identifiera en anläggning
     Adress:
       required:
-      - gatuadress
-      - ort
+        - gatuadress
+        - ort
       type: object
       properties:
         coadress:
@@ -472,10 +472,10 @@ components:
         adresstyp:
           type: string
           enum:
-          - Besöksadress
-          - Postadress
-          - Postadress SSBTGU
-          - Fakturaadress
+            - Besöksadress
+            - Postadress
+            - Postadress SSBTGU
+            - Fakturaadress
       description: "Adress kan vara t.ex. postadress, besöksadress eller fakturaadress"
     Anlaggning:
       type: object
@@ -499,8 +499,8 @@ components:
           type: string
           description: Är det en mobil anläggning?
           enum:
-          - nej
-          - ja
+            - nej
+            - ja
         adresser:
           type: array
           description: Anläggningens adresser
@@ -539,9 +539,9 @@ components:
           items:
             type: string
             enum:
-            - Kontaktperson anläggningen
-            - Kontaktperson ärendet
-            - Uppgiftslämnare
+              - Kontaktperson anläggningen
+              - Kontaktperson ärendet
+              - Uppgiftslämnare
       description: Anläggningens kontaktpersoner
     Kontaktuppgift:
       type: object
@@ -555,6 +555,7 @@ components:
           maxLength: 50
           minLength: 1
           type: string
+          format: email
           example: jenny.svensson@foretaget.com
       description: Telefonnummer och/eller e-postadress
     Livsmedelsverksamhet:
@@ -563,168 +564,168 @@ components:
         omfattning:
           type: string
           enum:
-          - SLO1
-          - SLO2
-          - SLO3
-          - SLO4
-          - TLO1
-          - TLO2
-          - TLO3
-          - TLO4
-          - HKO1
-          - HKO2
-          - HKO3
-          - HKO4
-          - DVO1
-          - DVO2
-          - DVO3
-          - DVO4
-          - DVO5
+            - SLO1
+            - SLO2
+            - SLO3
+            - SLO4
+            - TLO1
+            - TLO2
+            - TLO3
+            - TLO4
+            - HKO1
+            - HKO2
+            - HKO3
+            - HKO4
+            - DVO1
+            - DVO2
+            - DVO3
+            - DVO4
+            - DVO5
         huvudsakliginriktning:
           type: string
           enum:
-          - DVI
-          - SLI
-          - TLI
-          - HKI
+            - DVI
+            - SLI
+            - TLI
+            - HKI
         huvudaktivitet:
           type: array
           items:
             type: string
             enum:
-            - DVHA001
-            - DVHA002
-            - DVHA003
-            - DVHA004
-            - DVHA005
-            - HKHA001
-            - HKHA002
-            - HKHA003
-            - HKHA004
-            - HKHA005
-            - HKHA006
-            - HKHA007
-            - HKHA008
-            - SLHA001
-            - SLHA002
-            - SLHA003
-            - SLHA004
-            - SLHA005
-            - SLHA006
-            - SLHA007
-            - SLHA008
-            - TLHA001
-            - TLHA002
-            - TLHA003
-            - TLHA004
-            - TLHA005
-            - TLHA006
-            - TLHA008
-            - TLHA010
-            - TLHA011
-            - TLHA012
-            - TLHA013
-            - TLHA014
-            - TLHA015
-            - TLHA016
-            - TLHA017
-            - TLHA018
-            - TLHA019
-            - TLHA020
-            - TLHA021
-            - TLHA022
+              - DVHA001
+              - DVHA002
+              - DVHA003
+              - DVHA004
+              - DVHA005
+              - HKHA001
+              - HKHA002
+              - HKHA003
+              - HKHA004
+              - HKHA005
+              - HKHA006
+              - HKHA007
+              - HKHA008
+              - SLHA001
+              - SLHA002
+              - SLHA003
+              - SLHA004
+              - SLHA005
+              - SLHA006
+              - SLHA007
+              - SLHA008
+              - TLHA001
+              - TLHA002
+              - TLHA003
+              - TLHA004
+              - TLHA005
+              - TLHA006
+              - TLHA008
+              - TLHA010
+              - TLHA011
+              - TLHA012
+              - TLHA013
+              - TLHA014
+              - TLHA015
+              - TLHA016
+              - TLHA017
+              - TLHA018
+              - TLHA019
+              - TLHA020
+              - TLHA021
+              - TLHA022
         aktivitet:
           type: array
           items:
             type: string
             enum:
-            - DVUA001
-            - DVUA002
-            - DVUA003
-            - DVUA004
-            - DVUA005
-            - DVUA006
-            - DVUA007
-            - DVUA008
-            - DVUA009
-            - DVUA010
-            - HKUA001
-            - HKUA002
-            - HKUA003
-            - HKUA006
-            - HKUA007
-            - SLUA001
-            - SLUA002
-            - SLUA003
-            - SLUA004
-            - SLUA005
-            - SLUA006
-            - SLUA007
-            - SLUA008
-            - SLUA009
-            - SLUA010
-            - SLUA011
-            - SLUA012
-            - SLUA013
-            - SLUA014
-            - SLUA015
-            - SLUA016
-            - SLUA017
-            - SLUA018
-            - SLUA019
-            - SLUA020
-            - SLUA021
-            - SLUA022
-            - SLUA023
-            - SLUA024
-            - SLUA025
-            - SLUA026
-            - SLUA027
-            - SLUA030
-            - SLUA031
-            - SLUA032
-            - SLUA033
-            - TLUA001
-            - TLUA002
-            - TLUA003
-            - TLUA004
-            - TLUA005
-            - TLUA006
-            - TLUA007
-            - TLUA008
-            - TLUA009
-            - TLUA010
-            - TLUA011
-            - TLUA012
-            - TLUA013
-            - TLUA014
-            - TLUA016
-            - TLUA017
-            - TLUA018
-            - TLUA019
-            - TLUA020
-            - TLUA021
+              - DVUA001
+              - DVUA002
+              - DVUA003
+              - DVUA004
+              - DVUA005
+              - DVUA006
+              - DVUA007
+              - DVUA008
+              - DVUA009
+              - DVUA010
+              - HKUA001
+              - HKUA002
+              - HKUA003
+              - HKUA006
+              - HKUA007
+              - SLUA001
+              - SLUA002
+              - SLUA003
+              - SLUA004
+              - SLUA005
+              - SLUA006
+              - SLUA007
+              - SLUA008
+              - SLUA009
+              - SLUA010
+              - SLUA011
+              - SLUA012
+              - SLUA013
+              - SLUA014
+              - SLUA015
+              - SLUA016
+              - SLUA017
+              - SLUA018
+              - SLUA019
+              - SLUA020
+              - SLUA021
+              - SLUA022
+              - SLUA023
+              - SLUA024
+              - SLUA025
+              - SLUA026
+              - SLUA027
+              - SLUA030
+              - SLUA031
+              - SLUA032
+              - SLUA033
+              - TLUA001
+              - TLUA002
+              - TLUA003
+              - TLUA004
+              - TLUA005
+              - TLUA006
+              - TLUA007
+              - TLUA008
+              - TLUA009
+              - TLUA010
+              - TLUA011
+              - TLUA012
+              - TLUA013
+              - TLUA014
+              - TLUA016
+              - TLUA017
+              - TLUA018
+              - TLUA019
+              - TLUA020
+              - TLUA021
         produktgrupp:
           type: array
           items:
             type: string
             enum:
-            - PG001
-            - PG002
-            - PG003
-            - PG004
-            - PG005
-            - PG006
-            - PG007
-            - PG008
-            - PG009
-            - PG010
+              - PG001
+              - PG002
+              - PG003
+              - PG004
+              - PG005
+              - PG006
+              - PG007
+              - PG008
+              - PG009
+              - PG010
         tredjepartscertifiering:
           type: string
           description: Om verksamheten har en tredjepartscertifiering eller inte
           enum:
-          - nej
-          - ja
+            - nej
+            - ja
       description: Information om den livsmedelsverksamhet som bedrivs vid anläggningen
     Faktura:
       type: object
@@ -742,4 +743,4 @@ components:
           items:
             $ref: "#/components/schemas/Adress"
       description: Faktureringsuppgifter
-  securitySchemes: {}
+  securitySchemes: { }
