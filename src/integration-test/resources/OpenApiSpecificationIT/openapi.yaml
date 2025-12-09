@@ -1,13 +1,13 @@
-openapi: 3.0.1
+openapi: 3.1.0
 info:
   title: api-business-information
-  contact: { }
+  contact: {}
   license:
     name: MIT License
     url: https://opensource.org/licenses/MIT
   version: "2.0"
 servers:
-  - url: http://localhost:62929
+  - url: http://localhost:65504
     description: Generated server url
 tags:
   - name: Anlaggningar
@@ -37,7 +37,6 @@ paths:
           required: true
           schema:
             type: string
-            description: organisationsnummer för den eller de anläggningar som ska hämtas
       responses:
         "200":
           description: Successful operation
@@ -82,7 +81,6 @@ paths:
           required: true
           schema:
             type: string
-            description: Anläggningsid för den anläggning som ska hämtas
       responses:
         "200":
           description: Successful operation
@@ -127,7 +125,6 @@ paths:
           required: true
           schema:
             type: string
-            description: Anläggningsid för den anläggning som ska hämtas
       responses:
         "200":
           description: Successful operation
@@ -171,8 +168,6 @@ paths:
           required: true
           schema:
             type: string
-            description: Anläggningsid för den anläggning vars faktureringsuppgifter
-              ska hämtas
       responses:
         "200":
           description: Successful operation
@@ -215,12 +210,6 @@ components:
     Problem:
       type: object
       properties:
-        title:
-          type: string
-        detail:
-          type: string
-        status:
-          $ref: "#/components/schemas/StatusType"
         instance:
           type: string
           format: uri
@@ -229,8 +218,13 @@ components:
           format: uri
         parameters:
           type: object
-          additionalProperties:
-            type: object
+          additionalProperties: {}
+        status:
+          $ref: "#/components/schemas/StatusType"
+        title:
+          type: string
+        detail:
+          type: string
     StatusType:
       type: object
       properties:
@@ -279,15 +273,14 @@ components:
           type: string
         message:
           type: string
-        detail:
-          type: string
         instance:
           type: string
           format: uri
         parameters:
           type: object
-          additionalProperties:
-            type: object
+          additionalProperties: {}
+        detail:
+          type: string
         suppressed:
           type: array
           items:
@@ -324,8 +317,7 @@ components:
     ThrowableProblem:
       type: object
       properties:
-        cause:
-          $ref: "#/components/schemas/ThrowableProblem"
+        cause: {}
         stackTrace:
           type: array
           items:
@@ -350,12 +342,6 @@ components:
                 type: boolean
         message:
           type: string
-        title:
-          type: string
-        detail:
-          type: string
-        status:
-          $ref: "#/components/schemas/StatusType"
         instance:
           type: string
           format: uri
@@ -364,8 +350,13 @@ components:
           format: uri
         parameters:
           type: object
-          additionalProperties:
-            type: object
+          additionalProperties: {}
+        status:
+          $ref: "#/components/schemas/StatusType"
+        title:
+          type: string
+        detail:
+          type: string
         suppressed:
           type: array
           items:
@@ -408,67 +399,65 @@ components:
           type: string
     Anlaggningar:
       type: object
+      description: Uppgifter som används för att identifiera en anläggning
       properties:
         anlaggningsid:
-          maxLength: 50
-          minLength: 1
           type: string
           example: 0951c35c-c57b-4d65-9faf-b92ad0c846c8
-        anlaggningsnamn:
-          maxLength: 100
+          maxLength: 50
           minLength: 1
+        anlaggningsnamn:
           type: string
           example: Emmas Konditori
-        gatuadress:
-          maxLength: 64
+          maxLength: 100
           minLength: 1
+        gatuadress:
           type: string
           example: Storgatan 8
-        ort:
-          maxLength: 32
+          maxLength: 64
           minLength: 1
+        ort:
           type: string
           example: Sundsvall
+          maxLength: 32
+          minLength: 1
         huvudsakliginriktning:
           type: string
           example: SLI
-      description: Uppgifter som används för att identifiera en anläggning
     Adress:
-      required:
-        - gatuadress
-        - ort
       type: object
+      description: "Adress kan vara t.ex. postadress, besöksadress eller fakturaadress"
       properties:
         coadress:
-          maxLength: 64
-          minLength: 1
           type: string
           description: C/o-adress
-        gatuadress:
           maxLength: 64
           minLength: 1
+        gatuadress:
           type: string
           description: "Utdelningsadress, gatuadress eller box till företaget, anlä\
             ggningen/verksamhetsutövaren"
           example: Storgatan 8
+          maxLength: 64
+          minLength: 1
         postnummer:
-          maxLength: 6
-          minLength: 5
           type: string
           description: Postnummer
-          example: 851 81
+          example: 851
+          maxLength: 6
+          minLength: 5
         ort:
-          maxLength: 32
-          minLength: 1
           type: string
           description: "Ort, postort"
           example: Sundsvall
-        land:
           maxLength: 32
           minLength: 1
+        land:
           type: string
           description: Land
           example: Sverige
+          maxLength: 32
+          minLength: 1
         adresstyp:
           type: string
           enum:
@@ -476,25 +465,28 @@ components:
             - Postadress
             - Postadress SSBTGU
             - Fakturaadress
-      description: "Adress kan vara t.ex. postadress, besöksadress eller fakturaadress"
+      required:
+        - gatuadress
+        - ort
     Anlaggning:
       type: object
+      description: Uppgifter om en anläggning
       properties:
         anlaggningsid:
-          maxLength: 50
-          minLength: 1
           type: string
           example: 0951c35c-c57b-4d65-9faf-b92ad0c846c8
-        anlaggningsnamn:
-          maxLength: 100
-          minLength: 1
-          type: string
-          example: Emmas Konditori
-        fastighetsbeteckning:
           maxLength: 50
           minLength: 1
+        anlaggningsnamn:
+          type: string
+          example: Emmas Konditori
+          maxLength: 100
+          minLength: 1
+        fastighetsbeteckning:
           type: string
           example: Viken 23:1
+          maxLength: 50
+          minLength: 1
         mobilAnlaggning:
           type: string
           description: Är det en mobil anläggning?
@@ -511,7 +503,6 @@ components:
           description: Anläggningens kontaktpersoner
           items:
             $ref: "#/components/schemas/Kontaktperson"
-      description: Uppgifter om en anläggning
     Kontaktperson:
       type: object
       properties:
@@ -519,16 +510,16 @@ components:
           type: string
           example: 0951c35c-c57b-4d65-9faf-b92ad0c846c8
         fornamn:
-          maxLength: 32
-          minLength: 1
           type: string
           description: Förnamn
           example: Jenny
-        efternamn:
           maxLength: 32
           minLength: 1
+        efternamn:
           type: string
           example: Svensson
+          maxLength: 32
+          minLength: 1
         kontaktuppgifter:
           type: array
           description: Kontaktuppgifter för kontaktpersonen
@@ -542,24 +533,24 @@ components:
               - Kontaktperson anläggningen
               - Kontaktperson ärendet
               - Uppgiftslämnare
-      description: Anläggningens kontaktpersoner
     Kontaktuppgift:
       type: object
+      description: Telefonnummer och/eller e-postadress
       properties:
         telefonnummer:
-          maxLength: 15
-          minLength: 1
           type: string
           example: "0701740605"
-        epostadress:
-          maxLength: 50
+          maxLength: 15
           minLength: 1
+        epostadress:
           type: string
           format: email
           example: jenny.svensson@foretaget.com
-      description: Telefonnummer och/eller e-postadress
+          maxLength: 50
+          minLength: 1
     Livsmedelsverksamhet:
       type: object
+      description: Information om den livsmedelsverksamhet som bedrivs vid anläggningen
       properties:
         omfattning:
           type: string
@@ -726,9 +717,9 @@ components:
           enum:
             - nej
             - ja
-      description: Information om den livsmedelsverksamhet som bedrivs vid anläggningen
     Faktura:
       type: object
+      description: Faktureringsuppgifter
       properties:
         anlaggningsnamn:
           type: string
@@ -742,5 +733,5 @@ components:
           description: Faktureringsadress
           items:
             $ref: "#/components/schemas/Adress"
-      description: Faktureringsuppgifter
-  securitySchemes: { }
+  securitySchemes: {}
+ 
