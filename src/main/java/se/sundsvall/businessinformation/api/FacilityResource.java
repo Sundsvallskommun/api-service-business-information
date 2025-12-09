@@ -45,7 +45,7 @@ class FacilityResource {
 	})
 	ResponseEntity<Anlaggning> getAnlaggning(
 		@Parameter(name = "municipalityId", description = "Municipality id", example = "2281") @ValidMunicipalityId @PathVariable final String municipalityId,
-		@Schema(description = "Anläggningsid för den anläggning som ska hämtas") @PathVariable final String anlaggningsid) {
+		@Parameter(description = "Anläggningsid för den anläggning som ska hämtas") @PathVariable final String anlaggningsid) {
 
 		return ok(service.getFacility(anlaggningsid));
 	}
@@ -65,7 +65,7 @@ class FacilityResource {
 		})
 	ResponseEntity<Livsmedelsverksamhet> getLivsmedelsverksamhet(
 		@Parameter(name = "municipalityId", description = "Municipality id", example = "2281") @ValidMunicipalityId @PathVariable final String municipalityId,
-		@Schema(description = "Anläggningsid för den anläggning som ska hämtas") @PathVariable final String anlaggningsid) {
+		@Parameter(description = "Anläggningsid för den anläggning som ska hämtas") @PathVariable final String anlaggningsid) {
 
 		return ok(service.getLivsmedelsverksamhet(anlaggningsid));
 	}
@@ -80,7 +80,7 @@ class FacilityResource {
 	})
 	ResponseEntity<Faktura> getFakturering(
 		@Parameter(name = "municipalityId", description = "Municipality id", example = "2281") @ValidMunicipalityId @PathVariable final String municipalityId,
-		@Schema(description = "Anläggningsid för den anläggning vars faktureringsuppgifter ska hämtas") @PathVariable final String anlaggningsid) {
+		@Parameter(description = "Anläggningsid för den anläggning vars faktureringsuppgifter ska hämtas") @PathVariable final String anlaggningsid) {
 
 		return ok(service.getFakturering(anlaggningsid));
 	}

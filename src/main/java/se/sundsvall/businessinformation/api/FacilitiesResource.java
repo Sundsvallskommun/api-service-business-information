@@ -44,7 +44,7 @@ class FacilitiesResource {
 	})
 	ResponseEntity<List<Anlaggningar>> getAnlaggningar(
 		@Parameter(name = "municipalityId", description = "Municipality id", example = "2281") @ValidMunicipalityId @PathVariable final String municipalityId,
-		@Schema(description = "organisationsnummer för den eller de anläggningar som ska hämtas") @PathVariable final String organisationsnummer) {
+		@Parameter(description = "organisationsnummer för den eller de anläggningar som ska hämtas") @PathVariable final String organisationsnummer) {
 
 		return ok(service.getFacilities(organisationsnummer));
 	}
