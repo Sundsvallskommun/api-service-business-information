@@ -6,7 +6,7 @@ _Provides comprehensive information about food facilities, including facility de
 
 ### Prerequisites
 
-- **Java 21 or higher**
+- **Java 25 or higher**
 - **Maven**
 - **Git**
 - **[Dependent Microservices](#dependencies)**
