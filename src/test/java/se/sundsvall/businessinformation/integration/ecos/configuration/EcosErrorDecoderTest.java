@@ -1,9 +1,5 @@
 package se.sundsvall.businessinformation.integration.ecos.configuration;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
 import feign.Response;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -13,6 +9,10 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
 import se.sundsvall.dept44.exception.ClientProblem;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class EcosErrorDecoderTest {
