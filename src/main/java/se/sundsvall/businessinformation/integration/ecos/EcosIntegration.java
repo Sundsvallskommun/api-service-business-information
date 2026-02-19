@@ -1,8 +1,5 @@
 package se.sundsvall.businessinformation.integration.ecos;
 
-import static org.zalando.problem.Status.BAD_REQUEST;
-import static se.sundsvall.dept44.util.LogUtils.sanitizeForLogging;
-
 import generated.se.sundsvall.forratt.Anlaggning;
 import generated.se.sundsvall.forratt.Anlaggningar;
 import generated.se.sundsvall.forratt.Faktura;
@@ -39,6 +36,9 @@ import org.zalando.problem.Problem;
 import se.sundsvall.businessinformation.integration.ecos.configuration.EcosProperties;
 import se.sundsvall.businessinformation.integration.ecos.model.FacilityStatus;
 import se.sundsvall.businessinformation.integration.ecos.model.FacilityType;
+
+import static org.zalando.problem.Status.BAD_REQUEST;
+import static se.sundsvall.dept44.util.LogUtils.sanitizeForLogging;
 
 @Component
 @EnableConfigurationProperties(EcosProperties.class)

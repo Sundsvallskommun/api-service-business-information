@@ -1,7 +1,5 @@
 package se.sundsvall.businessinformation.integration.ecos;
 
-import static se.sundsvall.businessinformation.integration.ecos.configuration.EcosConfiguration.CLIENT_ID;
-
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import minutmiljo.GetFacilityPartyRoles;
 import minutmiljo.GetFacilityPartyRolesResponse;
@@ -14,6 +12,8 @@ import minutmiljo.SearchFacilityResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import se.sundsvall.businessinformation.integration.ecos.configuration.EcosConfiguration;
+
+import static se.sundsvall.businessinformation.integration.ecos.configuration.EcosConfiguration.CLIENT_ID;
 
 @FeignClient(name = CLIENT_ID, url = "${integration.ecos.url}", configuration = EcosConfiguration.class)
 @CircuitBreaker(name = CLIENT_ID)
