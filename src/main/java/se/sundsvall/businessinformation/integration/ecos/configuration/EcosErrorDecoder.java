@@ -9,10 +9,9 @@ import jakarta.xml.soap.SOAPMessage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Optional;
-import org.zalando.problem.ThrowableProblem;
 import se.sundsvall.dept44.exception.ClientProblem;
 
-import static org.zalando.problem.Status.BAD_REQUEST;
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
 public class EcosErrorDecoder implements ErrorDecoder {
 
@@ -43,7 +42,7 @@ public class EcosErrorDecoder implements ErrorDecoder {
 		return MessageFactory.newInstance(this.soapProtocol).createMessage(null, inputStream);
 	}
 
-	private ThrowableProblem defaultError(final String message) {
+	private ClientProblem defaultError(final String message) {
 		return new ClientProblem(BAD_REQUEST, "Bad request exception from Ecos " + message);
 	}
 }
