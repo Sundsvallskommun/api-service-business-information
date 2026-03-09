@@ -7,7 +7,7 @@ info:
     url: https://opensource.org/licenses/MIT
   version: "2.0"
 servers:
-- url: http://localhost:65509
+- url: http://localhost:50536
   description: Generated server url
 tags:
 - name: Anlaggningar
@@ -315,7 +315,7 @@ components:
         postnummer:
           type: string
           description: Postnummer
-          example: 851
+          example: 851 81
           maxLength: 6
           minLength: 5
         ort:
