@@ -7,7 +7,7 @@ info:
     url: https://opensource.org/licenses/MIT
   version: "2.0"
 servers:
-- url: http://localhost:50536
+- url: http://localhost:61934
   description: Generated server url
 tags:
 - name: Anlaggningar
@@ -274,34 +274,46 @@ components:
       description: Uppgifter som används för att identifiera en anläggning
       properties:
         anlaggningsid:
-          type: string
+          type:
+          - string
+          - "null"
           example: 0951c35c-c57b-4d65-9faf-b92ad0c846c8
           maxLength: 50
           minLength: 1
         anlaggningsnamn:
-          type: string
+          type:
+          - string
+          - "null"
           example: Emmas Konditori
           maxLength: 100
           minLength: 1
         gatuadress:
-          type: string
+          type:
+          - string
+          - "null"
           example: Storgatan 8
           maxLength: 64
           minLength: 1
         ort:
-          type: string
+          type:
+          - string
+          - "null"
           example: Sundsvall
           maxLength: 32
           minLength: 1
         huvudsakliginriktning:
-          type: string
+          type:
+          - string
+          - "null"
           example: SLI
     Adress:
       type: object
       description: "Adress kan vara t.ex. postadress, besöksadress eller fakturaadress"
       properties:
         coadress:
-          type: string
+          type:
+          - string
+          - "null"
           description: C/o-adress
           maxLength: 64
           minLength: 1
@@ -313,7 +325,9 @@ components:
           maxLength: 64
           minLength: 1
         postnummer:
-          type: string
+          type:
+          - string
+          - "null"
           description: Postnummer
           example: 851 81
           maxLength: 6
@@ -325,13 +339,17 @@ components:
           maxLength: 32
           minLength: 1
         land:
-          type: string
+          type:
+          - string
+          - "null"
           description: Land
           example: Sverige
           maxLength: 32
           minLength: 1
         adresstyp:
-          type: string
+          type:
+          - string
+          - "null"
           enum:
           - Besöksadress
           - Postadress
@@ -345,22 +363,30 @@ components:
       description: Uppgifter om en anläggning
       properties:
         anlaggningsid:
-          type: string
+          type:
+          - string
+          - "null"
           example: 0951c35c-c57b-4d65-9faf-b92ad0c846c8
           maxLength: 50
           minLength: 1
         anlaggningsnamn:
-          type: string
+          type:
+          - string
+          - "null"
           example: Emmas Konditori
           maxLength: 100
           minLength: 1
         fastighetsbeteckning:
-          type: string
+          type:
+          - string
+          - "null"
           example: Viken 23:1
           maxLength: 50
           minLength: 1
         mobilAnlaggning:
-          type: string
+          type:
+          - string
+          - "null"
           description: Är det en mobil anläggning?
           enum:
           - nej
@@ -379,16 +405,22 @@ components:
       type: object
       properties:
         kontaktpersonid:
-          type: string
+          type:
+          - string
+          - "null"
           example: 0951c35c-c57b-4d65-9faf-b92ad0c846c8
         fornamn:
-          type: string
+          type:
+          - string
+          - "null"
           description: Förnamn
           example: Jenny
           maxLength: 32
           minLength: 1
         efternamn:
-          type: string
+          type:
+          - string
+          - "null"
           example: Svensson
           maxLength: 32
           minLength: 1
@@ -410,12 +442,16 @@ components:
       description: Telefonnummer och/eller e-postadress
       properties:
         telefonnummer:
-          type: string
+          type:
+          - string
+          - "null"
           example: "0701740605"
           maxLength: 15
           minLength: 1
         epostadress:
-          type: string
+          type:
+          - string
+          - "null"
           format: email
           example: jenny.svensson@foretaget.com
           maxLength: 50
@@ -425,7 +461,9 @@ components:
       description: Information om den livsmedelsverksamhet som bedrivs vid anläggningen
       properties:
         omfattning:
-          type: string
+          type:
+          - string
+          - "null"
           enum:
           - SLO1
           - SLO2
@@ -445,7 +483,9 @@ components:
           - DVO4
           - DVO5
         huvudsakliginriktning:
-          type: string
+          type:
+          - string
+          - "null"
           enum:
           - DVI
           - SLI
@@ -584,7 +624,9 @@ components:
             - PG009
             - PG010
         tredjepartscertifiering:
-          type: string
+          type:
+          - string
+          - "null"
           description: Om verksamheten har en tredjepartscertifiering eller inte
           enum:
           - nej
@@ -594,10 +636,14 @@ components:
       description: Faktureringsuppgifter
       properties:
         anlaggningsnamn:
-          type: string
+          type:
+          - string
+          - "null"
           example: Emmas Konditori
         fakturareferens:
-          type: string
+          type:
+          - string
+          - "null"
           description: Fakturareferens att använda vid fakturering
           example: EK1101
         adresser:
